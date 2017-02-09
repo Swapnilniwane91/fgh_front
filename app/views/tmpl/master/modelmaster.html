@@ -1,0 +1,167 @@
+<div class="page page-ui-grid" ng-controller="modelMasterCtrl">
+  <!-- page header -->
+  <div class="pageheader">
+    <h2>{{ 'Menu.ADD_MODEL' | translate }}</h2>
+    <div class="page-bar">
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i> Home</a>
+        </li>
+        <li>
+          <a href="javascript:;">{{ 'Menu.Master' | translate }}</a>
+        </li>
+        <li>
+          <a ui-sref="app.tables.ui-grid">{{ 'Menu.ADD_MODEL' | translate }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- page content -->
+  <div class="pagecontent">
+      <div class="col-md-12">
+        <!-- tile -->
+        <section class="tile" fullscreen="isFullscreen01" ng-show="showAddUser">
+          <!-- tile header -->
+          <div class="tile-header dvd dvd-btm">
+            <h1 class="custom-font"><strong>Add New Model</strong></h1>
+            <ul class="controls">
+              <li>
+                <a href="javascript:;" ng-click="back()">
+                  <fa class="fa fa-arrow-left"></fa> Back </a>
+              </li>
+            </ul>
+          </div>
+          <!-- /tile header -->
+          <!-- tile body -->
+          <div class="tile-body">
+            <form class="form-horizontal" role="form" name="addUserForm">
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Model Name<b><span style="color:red" ng-if="buttonValue=='Submit'">*</span></b></label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="modelName" ng-disabled="buttonValue !='Submit'">
+                    </div>
+                  </div>
+
+                </div>
+                <!-- /col-md-6 -->
+                <!-- <div class="col-md-1"></div> -->
+                <div class="col-md-6">
+
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Model Description<b><span style="color:red" ng-if="buttonValue=='Submit'">*</span></b></label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="modelDesc" ng-disabled="buttonValue !='Submit'">
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+                <!-- /col-md-6 -->
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Oem Name <b><span style="color:red" ng-if="buttonValue=='Submit'">*</span></b></label>
+                        <div class="col-sm-8">
+                            <select class="form-control" ng-model="oemName" ng-disabled="buttonValue!='Submit'" ng-change = "product_list(oemName)">
+                            <option value="">---- Please Select ----</option>
+                            <option ng-repeat="oem in oems" value="{{oem.oemId}}">{{oem.oemName}}</option>
+                        </select>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Product Name <b><span style="color:red" ng-if="buttonValue=='Submit'">*</span></b></label>
+                        <div class="col-sm-8">
+                            <select class="form-control" ng-model="productName" ng-disabled="buttonValue!='Submit'">
+                            <option value="">---- Please Select ----</option>
+                            <option ng-repeat="product in productlist" value="{{product.id}}">{{product.productname}}</option>
+                        </select>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-5">
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label">Active</label>
+                       <div class="col-sm-8 control-label">
+                          <div class="onoffswitch greensea">
+                            <input name="onoffswitch" class="onoffswitch-checkbox" id="switch-on" checked="checked" type="checkbox"
+                            ng-model="isActive">
+                            <label class="onoffswitch-label" for="switch-on">
+                              <span class="onoffswitch-inner"></span>
+                              <span class="onoffswitch-switch"></span>
+                            </label>
+                          </div>
+                      </div>
+                    </div>
+                   </div>
+                </div>
+
+              <div class="row">
+                <!-- <div class="form-group" style="text-align:right;"> -->
+                <div class=" col-sm-12" style="text-align:center;">
+                  <button type="submit" ng-click="submitFn()" class="btn btn-primary"
+                    ng-disabled="(buttonValue =='Submit' && (!productName || !oemName || !modelName || !modelDesc ))">
+                    {{buttonValue}}
+                  </button>
+                  <button type="submit" ng-click="clearFn()" class="btn btn-danger">Clear</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /tile body -->
+        </section>
+        <!-- /tile -->
+      </div>
+
+    <section class="tile" fullscreen="isFullscreen03" ng-show="grid">
+      <!-- container header -->
+      <div class="tile-header dvd dvd-btm">
+        <h1 class="custom-font"><strong>Model List</strong></h1>
+        <ul class="controls">
+          <li>
+            <a href="javascript:;" ng-click="showForm()">
+              <fa class="fa fa-plus"></fa> Add New Model </a>
+          </li>
+        </ul>
+      </div>
+      <!-- /container header -->
+      <!-- tile body -->
+      <div class="tile-body">
+        <!-- <div class="table-responsive"> -->
+          <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" style="width: 100% !important;" class="table row-border hover">
+            <thead>
+              <tr>
+                <th hide>Sr.No.</th>
+                <th>Model Name</th>
+                <th>Created On</th>
+                <th>Product Name</th>
+                <th>Active</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="data in modelList">
+                <td hide>{{data.id}}</td>
+                <td>{{data.modelname}}</td>
+                <td>{{data.createdon}}</td>
+                <td>{{data.productname}}</td>
+                <td>{{data.isactive}}</td>
+                <td style="width:12.5%;vertical-align: middle;">
+                  <button class="btn btn-default btn-rounded  mb-10" ng-click="action(data.id)"><span>Edit</span></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        <!-- </div> -->
+      </div>
+      <!-- /tile body -->
+    </section>
+  </div>
+</div>
+<!-- /page content -->

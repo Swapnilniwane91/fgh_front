@@ -1,0 +1,111 @@
+<div class="page page-ui-grid">
+	<!-- page header -->
+	<div class="pageheader">
+		<h2>{{ 'Menu.UNIT_ESTIMATION_LIST' | translate }} </h2>
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li> <a ui-sref="app.dashboard"><i class="fa fa-home"></i>Home</a> </li>
+				<li> <a href="javascript:;">Transactions</a> </li>
+				<li> <a ui-sref="app.transaction.unitEstimateList">{{ 'Menu.UNIT_ESTIMATION_LIST' | translate }} </a> </li>
+			</ul>
+		</div>
+	</div>
+	<!-- /page header -->
+	<!-- page content -->
+	<div class="pagecontent">
+
+		<!-- row -->
+		<div class="row">
+			<!-- col -->
+			<div class="col-md-12">
+
+				<!-- tile -->
+				<section class="tile" fullscreen="isFullscreen01">
+
+					<!-- tile header -->
+					<div class="tile-header dvd dvd-btm">
+						<h1 class="custom-font"><strong>Claim</strong> List</h1>
+						<ul class="controls">
+							<li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+								<a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+								<ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+									<li>
+										<a href tile-control-toggle>
+											<span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+											<span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+										</a>
+									</li>
+									<li>
+										<a href tile-control-refresh ng-click="ajaxFaker()">
+											<fa name="refresh"></fa> Refresh
+										</a>
+									</li>
+									<li>
+										<a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+											<fa name="expand"></fa> Fullscreen
+										</a>
+									</li>
+									<li>
+										<a href tile-control-lightbox>
+											<fa name="magnet"></fa> Open in Lightbox
+										</a>
+									</li>
+
+								</ul>
+
+							</li>
+							<li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>
+						</ul>
+					</div>
+					<!-- /tile header -->
+
+					<!-- tile body -->
+					<div class="tile-body">
+						<div class="table-responsive">
+						<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table row-border hover">
+							<thead>
+								<tr>
+									<!-- <th>Sr.No.</th> -->
+									<th>Ticket Number</th>
+									<th>Customer Name</th>
+									<th>IMEI Number</th>
+									<!-- <th>Product Name</th> -->
+									<th>Model Name</th>
+									<!-- <th>Center Name</th> -->
+									<th>Status</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="data in SRData">
+									<td>{{ data.ticketnumber }}</td>
+									<td>{{ data.customername }}</td>
+									<td>{{ data.imeino }}</td>
+									<!-- <td>{{ data.productName }}</td> -->
+									<td>{{ data.modelname }}</td>
+									<!-- <td>{{ data.centername }}</td> -->
+									<td>{{ data.status }}</td>
+									<td style="width:12.5%;vertical-align: middle;">
+										<button class="btn btn-default btn-rounded  mb-10" ng-click="estimate(data)"><span>Estimate</span></button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					 </div>
+					</div>
+					<!-- /tile body -->
+
+				</section>
+				<!-- /tile -->
+
+
+			</div>
+			<!-- /col  -->
+		</div>
+		<!--/row  -->
+	</div>
+	<!-- page content -->
+</div>
+<!-- /page controller -->

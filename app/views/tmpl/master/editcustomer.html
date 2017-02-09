@@ -1,0 +1,230 @@
+<div class="page page-ui-grid">
+  <!-- page header -->
+  <div class="pageheader">
+    <h2>{{ 'Menu.EDIT_CUSTOMER' | translate}}</h2>
+    <div class="page-bar">
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i> Home</a>
+        </li>
+        <li>
+          <a href="javascript:;">{{ 'Menu.Master' | translate }}</a>
+        </li>
+        <li>
+          <a ui-sref="app.tables.ui-grid">{{ 'Menu.EDIT_CUSTOMER' | translate}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- /page header -->
+  <!-- page content -->
+  <div class="pagecontent">
+    <div class="row" ng-show="custdetail">
+      <div class="col-md-12">
+        <!-- tile -->
+        <section class="tile" fullscreen="isFullscreen01">
+          <!-- tile header -->
+          <div class="tile-header dvd dvd-btm">
+            <h1 class="custom-font"><strong>Edit Customer</strong></h1>
+            <ul class="controls">
+              <li>
+                <a href="javascript:;" ng-click="clearFn()">
+                  <fa class="fa fa-arrow-left"></fa> Back </a>
+              </li>
+            </ul>
+          </div>
+          <!-- /tile header -->
+          <!-- tile body -->
+          <div class="tile-body">
+            <form class="form-horizontal" role="form" name="addUserForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">First Name</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" alphabets-only ng-model="firstName" restrict-field="firstName" disabled>
+                    </div>
+                  </div>
+                   <div class="form-group">
+                    <label class="col-sm-4 control-label">Contact Number<b><span style="color:red">*</span></b></label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="contactNo" ng-change="contactChanges(custId, contactNo)" numb-only maxlength="12" minlength="10" restrict-field="contactNo">
+                      <span class="text-red" ng-if="contactError">{{contactError}}</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Email Id<b><span style="color:red">*</span></b></label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" name="email" ng-model="emailId" ng-change="emailChanges(custId, emailId)" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required restrict-field="emailId">
+                      <span class="text-red" ng-if="emailError">{{emailError}}</span>
+                      <!-- <p class="help-block"> -->
+                      <span style="color:Red" ng-if="addUserForm.email.$dirty&&addUserForm.email.$error.pattern">Please Enter Valid Email</span>
+                      <!-- </p>  -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Pincode</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="pincode" maxlength="6" numb-only ng-change="zipChange(pincode)" disabled>
+                      <span class="text-red" ng-if="zipError">{{zipError}}</span>
+                      <!-- <span style="color:Red" ng-if="pincode==''"> Zip is required.</span> -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">State</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="zipRes.state" disabled>
+                    </div>
+                  </div>
+                </div>
+                <!-- /col-md-6 -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Last Name</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="lastName" alphabets-only restrict-field="lastName" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Alternate Number</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="alternateNo" ng-change="alternatecontactChanges(custId, alternateNo)" numb-only maxlength="12" minlength="10" restrict-field="alternateNo">
+                      <span class="text-red" ng-if="alternatecontactError">{{alternatecontactError}}</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Permenant Address</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="address" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">District</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="zipRes.district" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Country</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="zipRes.country" disabled>
+                    </div>
+                  </div>
+                </div>
+                <!-- /col-md-6 -->
+              </div>
+              <!-- /row-->
+          <div class="tile-header dvd dvd-btm">
+          </div>
+          <!-- /tile header -->
+          <div class="tile-body">
+            <form class="form-horizontal" role="form">
+                <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="col-sm-3 control-label">Alternate Address</label>
+                    <div class="col-sm-6">
+                      <textarea type="text" class="form-control" ng-model="alternateAddress">
+                     </textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Pincode</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="alternatePincode" maxlength="6" numb-only ng-change="zipChanges(alternatePincode)">
+                      <span class="text-red" ng-if="zipErrors">{{zipErrors}}</span>
+                      <!-- <span style="color:Red" ng-if="pincode==''"> Zip is required.</span> -->
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">State</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="zipRest.state" disabled>
+                    </div>
+                  </div>
+                </div>
+                <!-- /col-md-6 -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">District</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="zipRest.district" disabled>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Country</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="zipRest.country" disabled>
+                    </div>
+                  </div>
+                </div>
+                <!-- /col-md-6 -->
+              </div>
+              
+               <div class="row">
+                <!-- <div class="form-group" style="text-align:right;"> -->
+                <div class=" col-sm-12" style="text-align:center;">
+                  <button type="submit" ng-click="submitFn()" class="btn btn-primary" ng-disabled="!firstName || !address || !emailId || !contactNo||
+                  !pincode || addUserForm.email.$dirty&&addUserForm.email.$error.pattern || zipError || invalidPass || isSubmit  || zipErrors || emailError || contactError || alternatecontactError">
+                    {{buttonValue}}
+                  </button>
+                  <button type="submit" formnovalidate ng-click="clearFn()" class="btn btn-danger">Cancel</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /tile body -->
+        </section>
+        <!-- /tile -->
+      </div>
+    </div>
+    <!-- /row -->
+    <section class="tile" fullscreen="isFullscreen03" ng-show="custlist">
+      <!-- container header -->
+      <div class="tile-header dvd dvd-btm" >
+        <h1 class="custom-font"><strong>Customer List</strong></h1>
+        <!--<ul class="controls">
+          <li uib-dropdown on-toggle="toggled(open)">
+            <a href tile-control-toggle>
+              <span class="minimize" id="min"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+              <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+            </a>
+          </li>
+        </ul>-->
+      </div>
+      <!-- /container header -->
+      <!-- tile body -->
+      <div class="tile-body">
+        <div class="table-responsive">
+          <table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" style="width: 100% !important;" class="table row-border hover">
+            <thead>
+              <tr>
+                <th hide>Sr.No.</th>
+                <th>Name</th>
+                <th>Contact Number</th>
+                <th>Email Id</th>
+                <th>Address</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="data in customerList">
+                <td hide>{{data.id}}</td>
+                <td>{{data.name}}</td>
+                <td>{{data.contactno}}</td>
+                <td>{{data.emailid}}</td>
+                <td>{{data.address1}}</td>
+                <td style="width:12.5%;vertical-align: middle;">
+                  <button class="btn btn-default btn-rounded  mb-10" ng-click="action(data.id)"><span>Edit</span></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- /tile body -->
+  </div>
+</div>
+<!-- /page content -->

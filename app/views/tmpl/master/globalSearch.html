@@ -1,0 +1,60 @@
+<div class="page page-ui-grid" ng-controller="globalCtrl">
+	<div class="pageheader">
+		<h2>Search Details</h2>
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li>
+					<a ui-sref="app.dashboard"><i class="fa fa-home"></i>Home</a>
+				</li>
+				<li>
+					<a ui-sref="app.globalSearch">Search Details</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<section class="tile" fullscreen="isFullscreen01">
+				<div class="tile-header dvd dvd-btm">
+					<h1 class="custom-font"><strong>SEARCH RESULT</strong></h1>
+					<ul class="controls">
+						<li class="dropdown" uib-dropdown on-toggle="toggled(open)"> <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+							<ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+								<li>
+									<a href tile-control-toggle> <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span> <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>										</a>
+								</li>
+								<li>
+									<a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+										<fa name="expand"></fa> Fullscreen </a>
+								</li>
+								<li>
+									<a href tile-control-lightbox>
+										<fa name="magnet"></fa> Open in Lightbox </a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!--tile body -->
+				<div class="tile-body">
+					<div class="table-responsive">
+						<table ng-if="authorized" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="table table-custom">
+							<tbody>
+								<tr ng-repeat="data in searchResult">
+									<td><a href ng-click="viewTicket(data.ticketnumber)" class="text-primary text-uppercase text-strong text-sm mr-10">{{ data.ticketnumber }}</a></td>
+									<td>{{ data.customername }}</td>
+									<td>{{ data.imeino }}</td>
+									<td>{{ data.productname }}</td>
+									<td>{{ data.modelname }}</td>
+									<td>{{ data.servicerequeststatus }}</td>
+									<td>{{ data.servicerequestedon }}</td>
+								</tr>
+							</tbody>		
+						</table>
+					</div>
+				</div>
+				<!-- /tile body -->
+			</section>
+		</div>
+	</div>
+</div>

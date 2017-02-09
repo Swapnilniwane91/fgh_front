@@ -1,0 +1,226 @@
+<div class="page page-single-order">
+    <!-- page header -->
+    <div class="pageheader">
+        <h2>{{page.title}} <span> {{page.subtitle}}</span></h2>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> Home</a>
+                </li>
+                <li>
+                    <a href="javascript:;">{{page.title}}</a>
+                </li>
+                <li>
+                    <a ui-sref="app.shop.single-order">{{page.subtitle}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+
+    <!-- page content -->
+    <div class="pagecontent">
+
+        <div class="add-nav">
+            <div class="nav-heading">
+                <h3>Invoice Details : <strong class="text-greensea">
+                  {{invoice.invoice.invoiceno}}</strong></h3>
+                <span class="controls pull-right">
+                  <a ng-click="invoiceback()" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20 mr-5" uib-tooltip="Back"><i class="fa fa-times"></i></a>
+                  <a href="javascript:window.print()" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20" uib-tooltip="Print"><i class="fa fa-print"></i></a>
+                  <a ng-click="downloadFn()" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20" uib-tooltip="Download"><i class="fa fa-download"></i></a>
+                </span>
+            </div>
+            <div  id= "invoicepdf">
+              <!-- <uib-tabset >
+                  <uib-tab> -->
+
+                      <!-- row -->
+                              <section class="tile time-simple">
+                                  <!-- tile body -->
+                                  <div class="tile-body">
+                                      <!-- row -->
+                                      <div class="row">
+                                          <!-- col -->
+                                          <div class="text-center">
+                                              <h4 class="text-uppercase text-strong mt-40 mb-20 custom-font">UNIT ESTIMATION</h4>
+                                          </div>
+                                      </div>
+                                      <!-- /col -->
+
+                                      <!-- col -->
+                                      <div class="row">
+                                          <div class="col-md-6">
+                                            <div class="tile-body">
+                                  						<div class="table-responsive">
+                                  						<table class="table table-bordered">
+                                                <!-- <hr> -->
+                                                <!-- <th> --><h4 style="text-align:center;">
+                                                  Invoice Raised To</h4>
+                                  							<tbody>
+                                                  <tr>
+                                                    <td style="width:12.5%;text-align: left;">Name:</td>
+                                  									<td style="width:12.5%;text-align: left;">{{invoice.invoice.customername}}</td>
+                                  								</tr>
+                                                  <tr>
+                                                    <td style="width:12.5%;text-align: left;">Address:</td>
+                                  									<td style="width:12.5%;text-align: left;">{{invoice.invoice.customeraddress}}, &nbsp {{invoice.invoice.customerpincode}}</td>
+                                  								</tr>
+
+                                                  <tr>
+                                                    <td style="width:12.5%;text-align: left;">Contact:</td>
+                                  									<td style="width:12.5%;text-align: left;">{{invoice.invoice.customercontactno}}</td>
+                                  								</tr>
+                                                  <tr>
+                                                    <td style="width:12.5%;text-align: left;">Email:</td>
+                                  									<td style="width:12.5%;text-align: left;">{{invoice.invoice.customeremailid}}</td>
+                                  								</tr>
+
+                                  							</tbody>
+                                  						</table>
+                                  					 </div>
+                                  					</div>
+
+                                          </div>
+                                          <!-- /col -->
+
+                                          <div class="col-md-6">
+                                            <div class="tile-body">
+                                  						<div class="table-responsive">
+                                  						<table class="table table-bordered">
+                                                <!-- <hr> -->
+                                                <!-- <th> --><h4 style="text-align:center;">
+                                                  Invoice Details</h4>
+                                  							<tbody>
+                                                  <tr>
+                                                    <td style="width:12.5%;text-align: left;">Invoice No:</td>
+                                  									<td style="width:12.5%;text-align: left;">{{invoice.invoice.invoiceno}}</td>
+                                  								</tr>
+                                                  <tr>
+                                                    <td style="width:12.5%;text-align: left;">Date of Invoice:</td>
+                                  									<td style="width:12.5%;text-align: left;">{{invoice.invoice.invoicedate | date : format : timezone }}</td>
+                                  								</tr>
+                                                  <tr>
+                                                    <td style="width:12.5%;text-align: left;">IMEI Number:</td>
+                                  									<td style="width:12.5%;text-align: left;">{{invoice.invoice.imeino}}</td>
+                                  								</tr>
+                                                  <tr>
+                                                    <td style="width:12.5%;text-align: left;">Model Name:</td>
+                                  									<td style="width:12.5%;text-align: left;">{{invoice.invoice.modelname}}</td>
+                                  								</tr>
+
+                                  							</tbody>
+                                  						</table>
+                                  					 </div>
+                                  					</div>
+
+                                          </div>
+                                          <!-- /col -->
+                                      </div>
+                                    </div>
+                                  <!-- /tile body -->
+
+                              </section>
+                              <!-- /tile -->
+
+
+                              <!-- tile -->
+                              <section class="tile tile-simple">
+
+                                  <!-- tile body -->
+                                  <div class="tile-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover">
+                                          <h4 style="text-align:center;">
+                                              Part Details
+                                          </h4>
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr No.</th>
+                                                    <th>Part Code</th>
+                                                    <th>Part Description</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="part in part">
+                                                    <td><a href="javascript:;">{{$index + 1}}</a></td>
+                                                    <td>{{part.partCode}}</td>
+                                                    <td>{{part.partDescription}}</td>
+                                                    <td>{{part.partAmount | number:2}}</td>
+                                                </tr>
+                                                <tr>
+                                                  <td colspan="3" style="text-align:right;"><b>Total Part Amount</b></td>
+                                                  <td><b>{{invoice.invoice.partchargestotal | number:2}}</b></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                  </div>
+                                  <!-- /tile body -->
+
+                              </section>
+                              <!-- /tile -->
+
+                      <!-- tile -->
+                      <div class = "row" >
+
+                        <div class = "col-md-12">
+                          <section class="tile tile-simple">
+
+                          <!-- tile body -->
+                            <div class="tile-body">
+                              <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" style="text-align:left;">
+                                  <h4 style="text-align:center;">
+                                      Invoice Particulars</h4>
+                                  <!-- </thead> -->
+                                  <thead>
+                                    <tr>
+                                      <th>Subject</th>
+                                      <th>Tax %</th>
+                                      <th>Tax Amount</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>{{invoice.taxlist[3].taxName}} </td>
+                                      <td>{{invoice.taxlist[3].amountInPercentage}}</td>
+                                      <td>{{invoice.invoice.vatcharges | number:2}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>Labour Charges</td>
+                                      <td></td>
+                                      <td>{{invoice.invoice.labourcharges | number:2}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td>{{invoice.taxlist[0].taxName}}</td>
+                                      <td>{{invoice.taxlist[0].amountInPercentage}}</td>
+                                      <td>{{invoice.invoice.servicecharges | number:2}}</td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="2" style="text-align:right;"><b>Total Amount</b></td>
+                                      <td><b>{{invoice.invoice.estimationtotal | number:2}}</b></td>
+
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+
+                            </div>
+                         </section>
+                        </div>
+                      </div>
+<!--
+                  </uib-tab>
+              </uib-tabset> -->
+            </div>
+        </div>
+
+    </div>
+    <!-- /page content -->
+
+    <div><p><center>NOTE: This is computer generated invoice and do not require any stamp or signature.</center></p></div>
+
+
+</div>

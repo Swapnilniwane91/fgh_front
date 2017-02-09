@@ -1,0 +1,217 @@
+<div class="page page-ui-grid" ng-controller="pickupAssignCtrl">
+	<!-- page header -->
+	<div class="pageheader">
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li>
+					<a ui-sref="app.dashboard"><i class="fa fa-home"></i> Home</a>
+				</li>
+				<li>
+					<a href="javascript:;">Pickup Generating Form</a>
+				</li>
+				<li>
+					<a ui-sref="app.shop.single-product">{{ 'Menu.SERVICE_ASSIGNMENT_LIST' | translate }}</a>
+				</li>
+			</ul>
+		</div>
+  	</div>
+	<!-- /page header -->
+	<!--/page content -->
+	<div class="pagecontent">
+			<section class="tile" fullscreen="isFullscreen00">
+				<div class="add-nav" ng-show ="ticket">
+				<div class="nav-heading">
+				<h3 >Ticket Number : <strong class="text-greensea">{{ticketnumbershow}}</strong></h3>
+				<span class="controls pull-right">
+				<button class="btn btn-default btn-rounded btn-ef btn-ef-5 btn-ef-5a mb-10" ng-click="cancel($index);"><i class="fa fa-arrow-left"></i> <span>Go Back</span></button>
+				</span>
+				</div>
+				</div>
+			</section>
+			<section class="tile" fullscreen="isFullscreen01">
+				<div class="row">
+					<!-- col -->
+					<!--Before Assign-->
+					<div class="col-md-12" ng-show="fA">
+						<!-- tile -->
+						<section class="tile" fullscreen="isFullscreen01">
+							<!-- tile header -->
+							<div class="tile-header dvd dvd-btm" >
+								<h1 class="custom-font"><strong>SERVICE  ASSIGNMENT  LIST</strong></h1>
+								<ul class="controls">
+									<li class="dropdown" uib-dropdown on-toggle="toggled(open)"> <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+										<ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+											<li>
+												<a href tile-control-toggle> <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span> <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span> </a>
+											</li>
+											<li>
+												<a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+													<fa name="expand"></fa> Fullscreen </a>
+											</li>
+											<li>
+												<a href tile-control-lightbox>
+													<fa name="magnet"></fa> Open in Lightbox </a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+							<!-- /tile header -->
+							<!-- tile body -->				
+							<div class="tile-body">
+								<div class="table-responsive" style="overflow-x:scroll;overflow-y:hidden;width:100%;">
+									<table ng-if="authorized" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="table table-custom">							
+										<tbody>
+											<tr ng-repeat="pickupData in pickupList">
+												<td>{{pickupData.ticketnumber}}</td>									
+												<td>{{pickupData.customername}}</td>
+												<td>{{pickupData.imei}}</td>
+												<td>{{pickupData.modelname}}</td>
+												<td>{{pickupData.assigntocenter}}</td>
+												<td>{{pickupData.pickupaddress}}</td>
+												<td>{{pickupData.district}}</td>
+												<td>{{pickupData.state}}</td>
+												<td>{{pickupData.assigntologistic}}</td>
+												<td align="center">
+													<!-- class="btn btn-ef btn-ef-1 btn-ef-1-primary btn-ef-1c mb-6" -->
+													<button type="submit" ng-click="addAssign($index, pickupData.headid, pickupData.pincode,pickupData.ticketnumber);" 
+													ng-if="pickupData.actionstatusid == 1" class="btn btn-default btn-ef btn-ef-5 btn-ef-5a">Assign</button>
+													<button type="submit" ng-click="addReAssign($index,pickupData.headid, pickupData.pincode,pickupData.ticketnumber);" 
+													ng-if="pickupData.actionstatusid == 2" class="btn btn-default btn-ef btn-ef-5 btn-ef-5a">Re-Assign</button>
+												</td>
+												<!--ng-show="$index == index" -->
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<!-- /tile body -->
+						</section>
+						<!-- /tile -->
+					</div>
+					<!-- /col -->
+					<!--Before Assign END-->
+					<!-- After Assign  -->
+					<!--     -->
+					<div class="col-md-12" ng-show="sA">
+						<!-- tile -->
+						<section class="tile" fullscreen="isFullscreen01">
+							<!-- tile header -->
+							<div class="tile-header dvd dvd-btm">
+								<h1 class="custom-font"><strong>SERVICE ASSIGNMENT DETAILS</strong></h1>
+								<ul class="controls">
+									<li class="dropdown" uib-dropdown on-toggle="toggled(open)"> <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+										<ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+											<li>
+												<a href tile-control-toggle> <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span> <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span> </a>
+											</li>
+											<li>
+												<a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+													<fa name="expand"></fa> Fullscreen </a>
+											</li>
+											<li>
+												<a href tile-control-lightbox>
+													<fa name="magnet"></fa> Open in Lightbox </a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+							<!-- /tile header -->
+							<!-- tile body -->
+							<div class="tile-body">
+								<div class="table-responsive">						
+									<table class="table table-hover table-striped table-bordered">
+										<thead>
+											<tr>
+												<th>IMEI Number</th>
+												<th>Product Name</th>
+												<th>Model Name</th>
+												<th>Status</th>
+												<th>Pickup Address</th>
+												<th>Date</th>
+											</tr>
+										</thead>
+										<tbody>
+												<tr ng-repeat ="pickupData in pickupDetails">
+												<td>{{pickupData.imeino}}</td>
+												<td>{{pickupData.productname}}</td>
+												<td>{{pickupData.modelname}}</td>
+												<td>{{pickupData.status1}}</td>
+												<td>{{pickupData.pickupaddress}}</td>
+												<td>{{ pickupData.date1 }}</td>
+												</tr>									
+										</tbody>							
+									</table>
+								</div>
+							</div>
+							<!-- /tile body -->
+						</section>
+						<!-- /tile -->
+						<section class="tile" fullscreen="isFullscreen01">
+							<!-- tile header -->
+							<div class="tile-header dvd dvd-btm">
+								<h1 class="custom-font"><strong>Assign To</strong></h1>
+								<ul class="controls">
+									<li class="dropdown" uib-dropdown on-toggle="toggled(open)"> <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+										<ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+											<li>
+												<a href tile-control-toggle> <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span> <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span> </a>
+											</li>
+											<li>
+												<a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+													<fa name="expand"></fa> Fullscreen </a>
+											</li>
+											<li>
+												<a href tile-control-lightbox>
+													<fa name="magnet"></fa> Open in Lightbox </a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+							<!-- /tile header -->
+							<!-- tile body -->
+							<div class="tile-body">
+								<div class="row">
+									<form role="form" name="filter">
+										<div class="col-md-3" class="form-group">
+											<label><b><strong><span style="color:red">*</span>Service Center :</strong></b></label>
+											<br>
+											<select class="form-control" ng-model="centers" ng-change="getPartData()" required>
+														<option value="">--select--</option>
+														<option ng-repeat="service in serviceCenters" value="{{service.centerid}}">{{service.centername}}</option>
+											</select>
+										</div>
+										<div class="col-md-3" class="form-group">
+											<label><b><strong><span style="color:red">*</span>Logistics :</strong></b></label>
+											<br>
+											<select class="form-control" ng-model="logisticsDetails" ng-disabled="!centers" required>
+														<option value="">--select--</option>
+														<option ng-repeat="logistic in logistics" value="{{logistic.id}}">{{logistic.firstname}}</option>
+											</select>
+										</div>
+										<div class="col-md-3" class="form-group">
+											<br>
+											<button type="submit" ng-click="assignToLogistick(centers, logisticsDetails)" class="btn btn-success"
+											ng-disabled="!logisticsDetails"><b>
+												Assign</b> </button>
+											<button type="cancel" ng-click=cancel($index); class="btn btn-grey"><b>
+											Cancel</b> </button>
+										</div>
+										<!-- <div class="col-md-1"></div> -->
+									</form>
+								</div>
+							</div>
+							<!-- /tile body -->
+						</section>
+					</div>
+					<!-- /col -->
+				</div>
+				<!-- /row -->
+			</section>
+		
+	</div>
+	<!-- page content -->
+</div>
+<!-- /page content -->

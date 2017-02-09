@@ -1,0 +1,345 @@
+<div class="page page-ui-grid" ng-controller="dispatchAssignmentCtrl">
+    <!-- page header -->
+    <div class="pageheader">
+        <h2>{{ 'Menu.UNIT_DISPATCH_LIST' | translate }} </h2>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li> <a ui-sref="app.dashboard"><i class="fa fa-home"></i>Home</a> </li>
+                <li> <a href="javascript:;">{{Menu.title}}</a> </li>
+                <li> <a ui-sref="app.transaction.unitDispatchList">{{Menu.subtitle}}</a> </li>
+            </ul>
+        </div>
+    </div>
+     <div class="pagecontent">	
+            <section class="tile" fullscreen="isFullscreen00">
+                <div class="add-nav" ng-show ="ticket">
+				<div class="nav-heading">
+				<h3 >Ticket Number : <strong class="text-greensea">{{ticketnumbershow}}</strong></h3>
+				<span class="controls pull-right">
+				<button class="btn btn-default btn-rounded btn-ef btn-ef-5 btn-ef-5a mb-10" ng-click="cancel($index);"><i class="fa fa-arrow-left"></i> <span>Go Back</span></button>
+				</span>
+				</div>
+                </div>
+			</section>
+            <div ng-if="list" class="pagecontent">
+                <div class="row">
+                    <div class="col-md-12">
+                        <section class="tile" fullscreen="isFullscreen03">
+
+                            <!-- tile header -->
+                            <div class="tile-header dvd dvd-btm">
+                                <h1 class="custom-font"><strong>Dispatch Unit </strong>List</h1>
+                                <ul class="controls">
+                                    <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                        <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                                        <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                            <li>
+                                                <a href tile-control-toggle>
+                                                    <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                                    <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href tile-control-refresh ng-click="ajaxFaker()">
+                                                    <fa name="refresh"></fa> Refresh
+                                                </a>
+                                            </li>isReplacement
+                                            <li>
+                                                <a href tile-control-fullscreen ng-click="isFullscreen03 = !isFullscreen03">
+                                                    <fa name="expand"></fa> Fullscreen
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href tile-control-lightbox>
+                                                    <fa name="magnet"></fa> Open in Lightbox
+                                                </a>
+                                            </li>
+
+                                        </ul>
+
+                                    </li>
+                                    <!--<li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>-->
+                                </ul>
+                            </div>
+                            <!-- /tile header -->
+
+                            <!-- tile body -->
+                            <div class="tile-body">
+                                <div class="table-responsive">
+                                    <table ng-if="authorized" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="table table-custom">
+                                        <tr ng-repeat="unit in dispatchList">
+                                            <td>{{unit.ticketNumber}}</td>
+                                            <td>{{unit.diliverToName}}</td>
+                                            <td>{{unit.imeiNo}}</td>
+                                            <td>{{unit.modelName}}</td>
+                                            <td>{{unit.diliverToAddress}}</td>
+                                            <td>{{unit.excessPayment || 0.0}}</td>
+                                            <td>{{unit.status}}</td>
+                                            <td>
+                                                <button ng-disabled="unit.excessPaymentReceived == null && unit.failTypeId != 2" type="submit" ng-click="addAssign(unit, paymentReceived)" class="btn btn-default">Assign</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="isDispatchProcess" class="pagecontent">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form name="dispatchForm">
+                            <section class="tile" fullscreen="isFullscreen03">
+                                <!--ng-if="list"-->
+                                <!-- tile header -->
+                                <div class="tile-header dvd dvd-btm">
+                                    <h1 class="custom-font"><strong>Replacement </strong>Details</h1>
+                                    <!-- <div class="nav-heading col-md-4"> -->
+                                    <!-- <button class="btn btn-default btn-rounded btn-ef btn-ef-5 btn-ef-5a mb-6" ng-click="cancel()"><i class="fa fa-arrow-left"></i> <span>Go Back</span></button> -->
+                                    <!--<button data-options="splash-2 splash-ef-12" style="float:right;right: 62px;" ng-click="cancel()" class="btn btn-default btn-rounded btn-ef btn-ef-5 btn-ef-5a mb-10"><b>Go Back</b></button>-->
+                                    <!-- </div> -->
+                                    <!-- <div class="nav-heading col-md-1"> -->
+                                    <ul class="controls">
+                                        <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                            <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                                            <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                                <li>
+                                                    <a href tile-control-toggle>
+                                                        <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                                        <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href tile-control-refresh ng-click="ajaxFaker()">
+                                                        <fa name="refresh"></fa> Refresh
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href tile-control-fullscreen ng-click="isFullscreen03 = !isFullscreen03">
+                                                        <fa name="expand"></fa> Fullscreen
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href tile-control-lightbox>
+                                                        <fa name="magnet"></fa> Open in Lightbox
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+
+                                        </li>
+                                        <!--<li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>-->
+                                    </ul>
+                                </div>
+                                <!-- /tile header -->
+
+                                <!-- tile body -->
+                                <div class="tile-body">
+                                    <div class="table table-responsive" style="overflow-x:auto;">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <td>
+                                                    <label class="checkbox checkbox-custom-alt">
+                                            <input ng-model="dispatchForm.replacementCheckbox" type="checkbox"><i></i>Is Replacement</label>
+                                                </td>
+                                                <td>Replaced Serial No </td>
+                                                <td><input ng-disabled="!dispatchForm.replacementCheckbox" ng-model="dispatchForm.replacedSerialNo" type="text" class="form-control mb-10" number-only placeholder="Serial No" maxlength="15" minlength="12" pattern="[0-9]*"
+                                                        required>
+                                                    <p class="help-block">
+                                                        <span ng-show="dispatchForm.replacedSerialNo.$invalid && !dispatchForm.replacedSerialNo.$pristine"><b>Serial Number is required.</b></span>
+                                                    </p>
+                                                </td>
+                                                <td>IMEI No</td>
+                                                <td><input ng-disabled="!dispatchForm.replacementCheckbox" ng-model="dispatchForm.replacedIMEINo" class="form-control mb-10" type="text" number-only placeholder="IMEI No" maxlength="15" minlength="12" pattern="[0-9]*"
+                                                        required>
+                                                    <p class="help-block">
+                                                        <span ng-show="dispatchForm.replacedIMEINo.$invalid && !dispatchForm.replacedIMEINo.$pristine"><b>IMEI Number is required.</b></span>
+                                                    </p>
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="tile" fullscreen="isFullscreen03">
+
+                                <!-- tile header -->
+                                <div class="tile-header dvd dvd-btm">
+                                    <h1 class="custom-font"><strong>Dispatch Process </strong>Parameters</h1>
+                                    <ul class="controls">
+                                        <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                            <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                                            <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                                <li>
+                                                    <a href tile-control-toggle>
+                                                        <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                                        <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href tile-control-refresh ng-click="ajaxFaker()">
+                                                        <fa name="refresh"></fa> Refresh
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href tile-control-fullscreen ng-click="isFullscreen03 = !isFullscreen03">
+                                                        <fa name="expand"></fa> Fullscreen
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href tile-control-lightbox>
+                                                        <fa name="magnet"></fa> Open in Lightbox
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+
+                                        </li>
+                                        <!--<li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>-->
+                                    </ul>
+                                </div>
+                                <!-- /tile header -->
+
+                                <!-- tile body -->
+                                <div class="tile-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Check List</th>
+                                                    <th>
+                                                        Confirmation
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="row in checkList">
+                                                    <td class="col-md-10">{{row.checklistname}}</td>
+                                                    <td>
+                                                        <label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+                                                        <input type="checkbox" ng-model="row.selected" ng-click="isChecked(row.checklistid)" >
+                                                        <i></i>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="tile" fullscreen="isFullscreen03">
+                                <!--ng-if="list"-->
+                                <!-- tile header -->
+                                <div class="tile-header dvd dvd-btm">
+                                    <h1 class="custom-font"><strong>Remark </strong></h1>
+                                    <!-- <div class="col-md-4" class="form-group"> -->
+                                    <button data-options="splash-2 splash-ef-12" style="float:right;right: 62px;" ng-click="uploadImg(unit.ticketNumber)" class="btn btn-success btn-rounded btn-ef btn-ef-5 btn-ef-5a mb-10"><b>View/Upload File</b></button>
+                                    <!-- </div> -->
+                                    <ul class="controls">
+                                        <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                                            <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                                            <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                                <li>
+                                                    <a href tile-control-toggle>
+                                                        <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                                        <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href tile-control-refresh ng-click="ajaxFaker()">
+                                                        <fa name="refresh"></fa> Refresh
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href tile-control-fullscreen ng-click="isFullscreen03 = !isFullscreen03">
+                                                        <fa name="expand"></fa> Fullscreen
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href tile-control-lightbox>
+                                                        <fa name="magnet"></fa> Open in Lightbox
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+
+                                        </li>
+                                        <!--<li class="remove"><a href tile-control-close><i class="fa fa-times"></i></a></li>-->
+                                    </ul>
+                                </div>
+                                <!-- /tile header -->
+
+                                <!-- tile body -->
+                                <div class="tile-body">
+                                    <div class="row">
+                                        <div class="col-md-12 form-inline">
+                                            <div class="col-sm-4 form-group">
+                                                <label class="col-md-4 control-label">Remark</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" ng-model="dispatchForm.remark" class="form-control" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4 form-group">
+                                                <label class="col-md-4 control-label"><span ng-show = "is_show" style="color:red">*</span>Assign To</label>
+                                                <div class="col-md-8">
+                                                    <select class="form-control" ng-model="dispatchForm.selectedLogistic" ng-disabled="ispickup" required>
+                                                <option value="">Please select</option>
+                                                <option ng-repeat="logistic in logistics" value="{{logistic.id}}">{{logistic.firstname}}</option>
+                                                </select>
+                                                    <p class="help-block">
+                                                        <span ng-show="dispatchForm.selectedLogistic.$invalid && !dispatchForm.selectedLogistic.$pristine"><b>Required Logistic.</b></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4 form-group">
+                                                <label class="col-md-4 control-label">Repair Type</label>
+                                                <div class="col-md-8">
+                                                    <select ng-disabled="!isRepairType" class="form-control" ng-model="dispatchForm.selectedRepairType">
+                                                <option value="">Please select</option>
+                                                <option ng-repeat="repairtype in repairTypes" value="{{repairtype.Id}}">{{repairtype.repairType}}</option>
+                                                </select>
+                                                    <p class="help-block">
+                                                        <span ng-show="dispatchForm.selectedRepairType.$invalid && !dispatchForm.selectedRepairType.$pristine"><b>Required Repair Type.</b></span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="tile" fullscreen="isFullscreen03">
+                                <div class="tile-body">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-md-12 text-center">
+
+                                                <button type="submit" ng-disabled="!ispickup && !dispatchForm.selectedLogistic" ng-click="dispatchSubmit(dispatchForm)" class="btn btn-success btn-rounded"><b>
+                                                                    Submit</b> </button>
+                                                <button type="cancel" ng-click="cancel($index)" class="btn btn-grey btn-rounded"><b>
+                                                                    Cancel</b> </button>
+                                                <!-- </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+</div>
+<!-- /page content -->

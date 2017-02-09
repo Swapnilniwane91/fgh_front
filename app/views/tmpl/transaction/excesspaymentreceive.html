@@ -1,0 +1,75 @@
+<div class="page page-ui-grid">
+	<!-- page header -->
+	<div class="pageheader">
+		<h2>{{ 'Menu.EXCESS_PAYMENT' | translate }} </h2>
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li>
+					<a ui-sref="app.dashboard">
+						<i class="fa fa-home"></i>Home
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">Excess Payment Receive</a>
+				</li>
+				<li>
+					<!--ui-sref="app.transaction.pickupassignment"-->
+					<a>{{ 'Menu.EXCESS_PAYMENT' | translate }} </a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<section class="tile">
+		<div class="tile-header dvd dvd-btm">
+			<h1 class="custom-font"><strong>Pending for Excess Payment Receive</strong></h1>
+			<ul class="controls">
+				<li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+					<a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+					<ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+						<li>
+							<a href tile-control-toggle>
+								<span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+								<span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+							</a>
+						</li>
+						<li>
+							<a href tile-control-refresh ng-click="ajaxFaker()">
+								<fa name="refresh"></fa> Refresh
+							</a>
+						</li>
+						<li>
+							<a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+								<fa name="expand"></fa> Fullscreen
+							</a>
+						</li>
+						<li>
+							<a href tile-control-lightbox>
+								<fa name="magnet"></fa> Open in Lightbox
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="tile-body">
+			<div class="table-responsive">
+				<table ng-if="authorized" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="table table-custom">
+					<tr ng-repeat="unit in excessPaymentRequestList">
+						<td>{{unit.ticketnumber}}</td>
+						<td>{{unit.customername}}</td>
+						<td>{{unit.imeino}}</td>
+						<td>{{unit.modelname}}</td>
+						<td>{{unit.deductibleamount}}</td>
+						<td>{{unit.status}}</td>
+						<td>
+							<label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+											<input type="checkbox" ng-click="showConfirm($event,unit.headid)"><i></i></label>   
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</section>
+</div>

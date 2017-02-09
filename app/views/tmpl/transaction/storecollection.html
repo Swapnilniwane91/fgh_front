@@ -1,0 +1,119 @@
+<div class="page page-ui-grid" ng-controller="storecollectionCtrl">
+  <!-- page controller -->
+  <div class="pageheader">
+    <h2>{{ 'Menu.STORE_UNIT_COLLECTION_LIST' | translate }} </h2>
+    <div class="page-bar">
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i>Home</a>
+        </li>
+        <li>
+          <a href="javascript:;">Transaction</a>
+        </li>
+        <li>
+          <a ui-sref="app.transaction.serviceRequest">{{ 'Menu.STORE_UNIT_COLLECTION_LIST' | translate }} </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="pagecontent">
+    <div class="row">
+      <!-- page row -->
+      <div class="col-md-12">
+        <!-- page col -->
+
+        <!-- tile -->
+        <section class="tile" fullscreen="isFullscreen01">
+          <!-- tile header -->
+          <div class="tile-header dvd dvd-btm">
+            <h1 class="custom-font"><strong>STORE UNIT COLLECTION LISTS</strong></h1>
+          </div>
+          <!-- /tile header -->
+          <!-- tile body -->
+          <div class="tile-body">
+            <form class="form-horizontal" role="form">
+              <label class="col-sm-3 control-label"><strong>IMEI/TICKET/SERIAL Number :</strong></label>
+              <div class="input-group col-sm-6">
+                <input type="text" class="form-control" ng-model="imeiNumber"  required>
+                <span class="input-group-btn">
+                  <button class="btn btn-success btn-rounded btn-ef btn-ef-6 btn-ef-6c mb-10" type="submit" ng-click="imeiNumberFn(imeiNumber)" ng-disabled="!imeiNumber">SEARCH</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- GridView -->
+                  <!-- CHECK OUT -->
+    <div class="col-md-12" ng-show="fA">
+			<!-- tile -->
+			<section class="tile" fullscreen="isFullscreen02">
+				<!-- tile header -->
+				<div class="tile-header dvd dvd-btm">
+					<h1 class="custom-font"><strong>COLLECTION INWARD LIST</strong></h1>
+					<ul class="controls">
+						<li class="dropdown" uib-dropdown on-toggle="toggled(open)"> <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+							<ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+								<li>
+									<a href tile-control-toggle> <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span> <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span> </a>
+								</li>
+								<li>
+									<a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+										<fa name="expand"></fa> Fullscreen </a>
+								</li>
+								<li>
+									<a href tile-control-lightbox>
+										<fa name="magnet"></fa> Open in Lightbox </a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<!-- /tile header -->
+				<!-- tile body -->
+				<div class="tile-body">
+					<div class="table-responsive">
+						<table class="table table-hover table-striped table-bordered">
+							<thead>
+								<tr>
+                  <!--<th>Pickup Request No.</th>-->
+                  <th>Ticket Number</th>
+									<th>Customer Name</th> 
+                  <th>IMEI No</th>                 
+									<th>Model Name</th>
+                  <th>Status</th>
+                  <th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="pickupData in pickupList">
+									<td>{{pickupData.ticketnumber}}</td>
+                  <td>{{pickupData.customername}}</td>
+                  <td>{{pickupData.imeino}}</td>
+									<td>{{pickupData.modelname}}</td>
+                  <td>{{pickupData.status}}</td>
+                  <td>
+										<!-- class="btn btn-ef btn-ef-1 btn-ef-1-primary btn-ef-1c mb-6" -->
+										<button type="submit" ng-click="collect($index, pickupData.headid)" 
+                    class="btn btn-success btn-rounded btn-ef btn-ef-6 btn-ef-6c mb-10">Collect</button>
+									
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<!-- <button type="cancel" ng-click="toaster1()" ng-disabled="isDisabled" class="btn btn-grey"><b>
+															 toaster</b> </button> -->
+					</div>
+				</div>
+				<!-- /tile body -->
+			</section>
+			<!-- /tile -->
+		</div>
+    <!-- End -->
+
+          <!-- END CHECKOUT  -->
+
+
+      </div>
+    </div>
+  </div>

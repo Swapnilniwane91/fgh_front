@@ -1,0 +1,315 @@
+<div class="page page-ui-grid" ng-controller="pickupDropCtrl">
+    <!-- page header -->
+    <div class="pageheader">
+        <h2>{{ 'Menu.PICKUP_DROP' | translate }} </h2>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard">
+                        <i class="fa fa-home"></i>Home
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;">{{Menu.title}}</a>
+                </li>
+                <li>
+                    <a ui-sref="app.transaction.pickupDrop">{{ 'Menu.PICKUP_DROP' | translate }} </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+    <!--/page content -->
+    <div class="pagecontent">
+			<section class="tile" fullscreen="isFullscreen00">
+                <div class="add-nav" ng-show ="ticket">
+				<div class="nav-heading">
+				<h3 >Ticket Number : <strong class="text-greensea">{{ticketnumbershow}}</strong></h3>
+				<span class="controls pull-right">
+				<button class="btn btn-default btn-rounded btn-ef btn-ef-5 btn-ef-5a mb-10" ng-click="cancel($index);"><i class="fa fa-arrow-left"></i> <span>Go Back</span></button>
+				</span>
+				</div>
+                </div>
+			</section>
+			<section class="tile" fullscreen="isFullscreen01">
+                <div class="row">
+                    <!-- col -->
+                    <!--Before Assign-->
+                    <div class="col-md-12" ng-show="fA">
+                        <!-- tile -->
+                        <section class="tile" fullscreen="isFullscreen01">
+                            <!-- tile header -->
+                            <div class="tile-header dvd dvd-btm">
+                                <h1 class="custom-font">
+                                    <strong>PICKUP  REQUEST  DETAILS</strong>
+                                </h1>
+                                <ul class="controls">
+                                    <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+                                        <a href uib-dropdown-toggle class="dropdown-toggle settings">
+                                            <i class="fa fa-cog"></i>
+                                        </a>
+                                        <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                            <li>
+                                                <a href tile-control-toggle>
+                                                    <span class="minimize">
+                                                        <fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize
+                                                    </span>
+                                                    <span class="expand">
+                                                        <fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+                                                    <fa name="expand"></fa> Fullscreen
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href tile-control-lightbox>
+                                                    <fa name="magnet"></fa> Open in Lightbox
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- /tile header -->
+                            <!-- tile body -->
+                            <div class="tile-body">
+                                <div class="table-responsive">
+                                    <table ng-if="authorized" datatable="" dt-options="dtOptions" dt-columns="dtColumns" class="table table-custom">
+
+                                        <tbody>
+                                            <tr ng-repeat="pickupData in pickupList">
+                                                <td>{{pickupData.ticketnumber}}</td>
+                                                <td>{{pickupData.customername}}</td>
+                                                <td>{{pickupData.imeino}}</td>
+                                                <td>{{pickupData.modelname}}</td>
+                                                <td>{{pickupData.pickupaddress}}</td>
+                                                <td>{{pickupData.servicecenteraddress}}</td>
+                                                <td>{{pickupData.date1}}</td>
+                                                <td>
+                                                    <button type="submit" ng-if="pickupData.actionstatusid == 2" ng-click="pickUp(pickupData)" class="btn btn-success btn-rounded btn-ef btn-ef-6 btn-ef-6c mb-10">PickUp from Customer</button>
+                                                    <button type="submit" ng-if="pickupData.actionstatusid == 13" ng-click="pickUpFromStore(pickupData)" class="btn btn-info btn-rounded btn-ef btn-ef-6 btn-ef-6c mb-10">Drop to Customer</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <!-- /tile body -->
+                        </section>
+                        <!-- /tile -->
+                    </div>
+
+                    <div class="col-md-12" ng-show="sA">
+                        <!-- tile -->
+                        <section class="tile" fullscreen="isFullscreen03">
+                            <!-- tile header -->
+                            <div class="tile-header dvd dvd-btm">
+                                <h1 class="custom-font">
+                                    <strong>RECOMMENDED  CHECK  POINTS</strong>
+                                </h1>
+                                <ul class="controls">
+                                    <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+                                        <a href uib-dropdown-toggle class="dropdown-toggle settings">
+                                            <i class="fa fa-cog"></i>
+                                        </a>
+                                        <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                            <li>
+                                                <a href tile-control-toggle>
+                                                    <span class="minimize">
+                                                        <fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize
+                                                    </span>
+                                                    <span class="expand">
+                                                        <fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+                                                    <fa name="expand"></fa> Fullscreen
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href tile-control-lightbox>
+                                                    <fa name="magnet"></fa> Open in Lightbox
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- /tile header -->
+                            <!-- tile body -->
+                            <div class="tile-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Check List</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="pickupData in pickupDetails">
+                                                <td>{{pickupData.checklistname}}</td>
+                                                <td>
+                                                    <label class="checkbox checkbox-custom checkbox-custom-sm m-0">
+                                                        <input type="checkbox" ng-model="pickupData.selected" ng-change="isLabelUnChecked()">
+                                                            <i></i>
+                                                        </label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- /tile body -->
+                        </section>
+                        <!-- /tile -->
+                        <section class="tile" fullscreen="isFullscreen01">
+                            <!-- tile header -->
+                            <div class="tile-header dvd dvd-btm">
+                                <h1 class="custom-font">
+                                    <strong>REMARKS</strong>
+                                </h1>
+                                <ul class="controls">
+                                    <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+                                        <a href uib-dropdown-toggle class="dropdown-toggle settings">
+                                            <i class="fa fa-cog"></i>
+                                        </a>
+                                        <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                            <li>
+                                                <a href tile-control-toggle>
+                                                    <span class="minimize">
+                                                            <fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize
+                                                        </span>
+                                                    <span class="expand">
+                                                            <fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand
+                                                        </span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href tile-control-fullscreen ng-click="isFullscreen01 = !isFullscreen01">
+                                                    <fa name="expand"></fa> Fullscreen
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href tile-control-lightbox>
+                                                    <fa name="magnet"></fa> Open in Lightbox
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- /tile header -->
+                            <!-- tile body -->
+                            <div class="tile-body">
+                                <div class="row">
+                                    <form role="form" name="filter">
+                                        <div class="col-md-4 form-group"></div>
+                                        <div class="col-md-4 form-group"></div>
+                                        <div class="col-md-4 form-group">
+                                            <div style="margin-left:-150px;">
+                                                <!--<button data-options="splash-2 splash-ef-12" style="float:right;center: 52px;" ng-click="printDoc(pickupData.ticketNumber)" class="btn btn-default btn-ef btn-ef-5 btn-ef-5a"><b>PickUp Document</b></button>
+                                            <button data-options="splash-2 splash-ef-12" style="float:right;center: 52px;" ng-click="printDoc(pickupData.ticketNumber)" class="btn btn-default btn-ef btn-ef-5 btn-ef-5a"><b>Logistic Remarks</b></button>
+                                            <button data-options="splash-2 splash-ef-12" style="float:right;right: 62px;" ng-click="uploadImg(pickupData.ticketNumber)" class="btn btn-default btn-ef btn-ef-5 btn-ef-5a"><b>View/Upload File</b></button>-->
+                                                <button class="btn btn-default" ng-click="printDoc(pickupData.ticketNumber)">
+                                            <span><b>PickUp Document</b></span></button>
+                                                <button class="btn btn-default" ng-click="logisticRemarks(pickupData.ticketNumber)">
+                                            <span><b>Logistic Remarks</b></span></button>
+                                                <button class="btn btn-default" ng-click="uploadImg(pickupData.ticketNumber)">
+                                            <span><b>View/Upload Images</b></span></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <form role="form" name="filter">
+                                        <div class="col-md-3 form-group">
+                                            <label>
+                                                <b>
+                                                    <strong>Current Serial Number :</strong>
+                                                </b>
+                                            </label>
+                                            <br>
+
+                                            <!--serviceCenter-->
+                                            <input type="text" ng-model="serialno" class="form-control" readonly="readonly" />
+                                        </div>
+                                        <div ng-if="isPickUpFromCustomer" class="col-md-3 form-group">
+                                            <label>
+                                                    <b>
+                                                        <strong>
+                                                            <span style="color:red">*</span>Loaner Device Serial Number :
+                                                        </strong>
+                                                        </b>
+                                                </label>
+                                            <br>
+                                            <!--<select ng-options="br as br.serialno for br in bindLoaner" name="branddrop" ng-disabled="enableMe" class="form-control" ng-model="br.selected" ng-change="selectBrand(br.selected)" required>
+                                                    <option value="">--Select-- </option>   {{br.selected}} 
+                                                    </select>-->
+                                            <select name="repeatSelect" id="repeatSelect" ng-model="selectedloanerId" ng-disabled="!isSelectLoanerShow" ng-change="selecteddevice(selectedloanerId)" class="form-control" required>
+                                                <option value="">--Select-- </option>
+                                                <option ng-repeat="option in bindLoaner" value="{{option.id}}">{{option.serialno}}</option>
+                                            </select>
+                                        </div>
+                                        <div ng-if="isPickUpFromStore" class="col-md-3 form-group">
+                                            <label></label>
+                                            <label class="checkbox checkbox-custom-alt checkbox-custom-lg">
+                                                <input ng-disabled="!isLoanerShow" ng-click="loanerChecked(loanerReceived)" ng-model="loanerReceived" 
+                                                type="checkbox"><i></i><b><strong> Received Loaner </strong></b>
+                                            </label>
+                                        </div>
+                                        <!-- <div class="col-md-1"></div> -->
+                                        <div class="col-md-3 form-group">
+                                            <label><b><strong>Air Way Bill (Docket) Number :</strong></b></label>
+                                            <br>
+                                            <input type="text" ng-model="docketNumber" class="form-control" />
+                                        </div>
+                                        <!-- </form></div> -->
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <!--<form role="form" name="filter">-->
+                                    <div class="col-md-3 form-group">
+                                        <label>
+                                                            <b>
+                                                                <strong>Remarks : </strong>
+                                                            </b>
+                                                        </label>
+                                        <br>
+                                        <!-- <input type="text" ng-model="serviceCenter" class="form-control"/> -->
+                                        <textarea cols="100" rows="2" ng-model="remarks" class="form-control"></textarea>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <br>
+                                        <button type="submit" ng-show="isPickUpFromCustomer" ng-click="submit($index, pickupData.id, pickupData.isloanerapplicable)" ng-disabled="!submitstate && isSelectLoanerShow" class="btn btn-success">
+                                                                    <b>Submit</b>
+                                                            </button>
+                                        <button type="submit" ng-show="isPickUpFromStore" ng-disabled="!loanerReceived && isLoanerShow" ng-click="submit($index, pickupData.id, pickupData.isloanerapplicable)" class="btn btn-success">
+                                                                    <b>Submit</b>
+                                                            </button>
+                                        <button type="cancel" ng-click="cancel($index)" ng-click-options="{preventDoubleClick: true}" class="btn btn-grey">
+                                                                    <b>
+                                                                        Cancel</b>
+                                                                </button>
+                                    </div>
+                                    <!--</form>-->
+                                </div>
+                            </div>
+                            <!-- /tile body -->
+                        </section>
+
+                        <!-- /col -->
+                    </div>
+                    <!-- /row -->
+                    <!-- page content -->
+                </div>
+            </section>
+		
+	</div>
+    <!-- /page content -->

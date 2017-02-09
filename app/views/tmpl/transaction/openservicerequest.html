@@ -1,0 +1,169 @@
+<div class="page page-ui-grid">
+	<!-- page header -->
+	<div class="pageheader">
+		<h2>{{ 'Menu.OPEN_SERVICE_REQUEST' | translate }} </h2>
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li> <a ui-sref="app.dashboard"><i class="fa fa-home"></i>Home</a> </li>
+				<li> <a href="javascript:;">Transactions</a> </li>
+				<li> <a ui-sref="app.transaction.openServiceRequest">{{ 'Menu.OPEN_SERVICE_REQUEST' | translate }} </a> </li>
+			</ul>
+		</div>
+	</div>
+	<!-- /page header -->
+	<!-- page content -->
+	<div class="pagecontent">
+			<section class="tile" fullscreen="isFullscreen00">
+				<div class="add-nav" ng-show ="ticket">
+				<div class="nav-heading" >
+				<h3>Ticket Number : <strong class="text-greensea">{{ticketnumbershow}}</strong></h3>
+				<span class="controls pull-right">
+				<button class="btn btn-default btn-rounded btn-ef btn-ef-5 btn-ef-5a mb-10" ng-click="back()"><i class="fa fa-arrow-left"></i> <span>Go Back</span></button>
+				</span>
+				</div>
+				</div>
+			</section>
+			<!-- row -->
+			<div class="row" ng-if="list">
+				<!-- col -->
+				<div class="col-md-12">
+					<!-- tile -->
+					<section class="tile" fullscreen="isFullscreen01">
+						<!-- tile header -->
+						<div class="tile-header dvd dvd-btm">
+							<h1 class="custom-font"><strong>Service Request List</strong></h1>
+							<ul class="controls">
+								<li uib-dropdown on-toggle="toggled(open)">
+									<a href tile-control-toggle>
+										<span class="minimize" id="min"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+										<span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<!-- /tile header -->
+						<!-- tile body -->
+						<div class="tile-body">
+							<div class="table-responsive">
+								<table datatable="ng" dt-options="dtOptions" dt-column-defs="dtColumnDefs" class="table row-border hover">
+									<thead>
+										<tr>
+											<th>Ticket Number</th>
+											<th>Customer Name</th>
+											<th>Imei Number</th>
+											<th>Model Name</th>
+											<th>Status</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="data in SRData">
+											<td>{{ data.TicketNumber }}</td>
+											<td>{{ data.CustomerName }}</td>
+											<td>{{ data.IMEI }}</td>
+											<td>{{ data.Model }}</td>
+											<td>{{ data.ActionStatus }}</td>
+											<td style="width:12.5%;vertical-align: middle;">
+												<button class="btn btn-default btn-rounded  mb-10" ng-click="view(data.TicketNumber,data.Id)"><span>Unit Receive</span>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- /tile body -->
+					</section>
+					<!-- /tile -->
+				</div>
+				<!-- /col  -->
+			</div>
+			<!--/row  -->
+			<div class="row" ng-if="show">
+				<!-- col -->
+				<div class="col-md-12">
+					<!-- tile -->
+					<section class="tile" fullscreen="isFullscreen01">
+						<!-- tile header -->
+						<div class="tile-header dvd dvd-btm">
+							<h1 class="custom-font"><strong>Feedback</strong></h1>
+						</div>
+						<!-- /tile header -->
+						<!-- tile body -->
+						<div class="tile-body">
+							<div class="row">
+								<div class="col-md-3"></div>
+								<div class="col-md-6 ">
+									<!-- tile body -->
+									<div class="tile-body">
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th>Parameters</th>
+													<th>Ratings</th>
+												</tr>
+											</thead>
+											<tbody>
+												<!--  ng-repeat=" feed in feedback"-->
+												<tr ng-repeat=" feed in feedback">
+													<td style="width: 50%">{{feed.question}}</td>
+													<td style="width: 50%">
+														<!--  ng-init="x = 3" -->
+														<div class="mb-10">
+															<uib-rating ng-model="data.star[feed.Id]" max="5" state-on="'fa fa-star text-orange text-lg'" state-off="'fa fa-star-o text-lg'"></uib-rating> <b></b>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- /tile body -->
+								</div>
+								<div class="col-md-3"></div>
+								<div class="col-md-12">
+									<br>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="col-sm-4 control-label">Recieved By<b><span style="color:red">*</span></b></label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" ng-model="data.recievedBy">
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label class="col-sm-4 control-label">Remarks</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" ng-model="data.remarks">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="col-md-4"></div>
+									<div class="col-md-6">
+										<button class="btn btn-default btn-rounded  mb-10" ng-click="closeReq()" ng-disabled="!data.recievedBy || isSubmit"><span>Close Service Request</span>
+										</button>
+										<!-- </div>
+									<div class="col-sm-3"> -->
+										<button class="btn btn-default btn-rounded  mb-10" ng-click="clear()"><span>Clear</span>
+										</button>
+									</div>
+									<div class="col-md-2"></div>
+								</div>
+							</div>
+						</div>
+						<!-- /tile body -->
+					</section>
+					<!-- /tile -->
+				</div>
+				<!-- /col  -->
+			</div>
+
+	</div>
+	<!-- page content -->
+</div>
+<!-- /page controller -->

@@ -1,0 +1,179 @@
+<div class="page page-tables-bootstrap" ng-controller="userRoleClientMappingCtrl">
+
+  <!-- page header -->
+  <div class="pageheader">
+    <h2>User Role Client Mapping</h2>
+    <div class="page-bar">
+
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i>Home</a>
+        </li>
+        <li>
+          <a ui-sref="app.master.logisticsLoanerMapping">User Role Client Mapping</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+  <!-- /page header -->
+
+  <!-- page content -->
+  <div class="pagecontent">
+
+    <!-- row -->
+    <!-- ng-show="Mapped" -->
+    <div class="row">
+      <div class="col-md-12">
+        <!-- tile -->
+        <section class="tile" fullscreen="isFullscreen01">
+
+          <!-- tile header -->
+          <div class="tile-header dvd dvd-btm">
+            <h1 class="custom-font"><strong>User Role Client Mapping</strong></h1>
+            <ul class="controls">
+
+              <li uib-dropdown on-toggle="toggled(open)">
+                <a href tile-control-toggle>
+                  <span class="minimize" id="min"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                  <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                </a>
+              </li>
+
+            </ul>
+          </div>
+          <!-- /tile header -->
+
+          <!-- tile body -->
+          <div class="tile-body">
+
+            <form class="form-horizontal" role="form">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">
+                      Select User <span style="color:red">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                      <select class="form-control" ng-model="searchFields.users" ng-disabled="disableUser">
+                        <option value="">---- Please Select ----</option>
+                        <option ng-repeat="userlist in allusers"
+                        value="{{userlist.id}}">{{userlist.firstname}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">
+                    Select Multiple Roles <span style="color:red">*</span></label>
+                    <div class="col-sm-8">
+                      <select multiple chosen="{width: '330px'}" class="form-control" ng-change="getRoleDetails(roles.id)" ng-model="searchFields.multipleRoles" ng-options="role.id as role.rolename for role in allRoles">
+                        <!--<option ng-repeat="roles in allRoles" value="{{roles.id}}">{{roles.rolename}}</option>-->
+                      </select>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- /col-md-6 -->
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">
+                       Select Client <span style="color:red">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                      <select class="form-control" ng-model="searchFields.clients" ng-change="getRoleClient(roles.id, clientlist.cid)">
+                        <option value="">---- Please Select ----</option>
+                        <option ng-repeat="clientlist in allClients"
+                        value="{{clientlist.id}}">{{clientlist.clientname}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">
+                      <!--(searchFields.multipleRoles == 4 && !searchFields.centers)-->
+                    Select Centers <span style="color:red" ng-show="(isStoreSelected && !searchFields.centers)">*</span></label>
+                    <div class="col-sm-8">
+                      <select class="form-control" ng-model="searchFields.centers" ng-disabled="disableCenter">
+                        <option value="">---- Please Select ----</option>
+                        <option ng-repeat="centerlist in allCenters"
+                        value="{{centerlist.id}}">{{centerlist.centername}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- (searchFields.multipleRoles == 4 && !searchFields.centers) -->
+              <!-- "!(searchFields.clients && searchFields.users && searchFields.multipleRoles) 
+                || (isStoreSelected && !searchFields.centers)"-->
+              <div class="form-group" style="text-align:center;">
+                <button type="submit" ng-click="submitData()" 
+                ng-disabled="!(searchFields.clients && searchFields.users && searchFields.multipleRoles) 
+                || (isStoreSelected && !searchFields.centers)"                
+               
+                class="btn btn-primary">
+
+                        {{buttonSubmit}}
+                      </button>
+                <button type="reset" ng-click="reset()" class="btn btn-danger">Clear</button>
+              </div>
+          </div>
+          <!-- /row-->
+          </form>
+
+      </div>
+      <!-- /tile body -->
+
+      </section>
+      <!-- /tile -->
+    </div>
+  </div>
+  <!-- /row -->
+
+  <!-- row -->
+  <div class="row">
+    <!-- col -->
+    <div class="col-md-12">
+      <!-- tile -->
+      <section class="tile" fullscreen="isFullscreen04">
+        <!-- tile header -->
+        <div class="tile-header dvd dvd-btm">
+          <h1 class="custom-font"><strong>Mapping Details </strong></h1>
+          <ul class="controls">
+            <li uib-dropdown on-toggle="toggled(open)">
+              <a href tile-control-toggle>
+                <span class="minimize" id="min"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- /tile header -->
+
+        <!-- tile body -->
+        <!-- ng-if="priceData.length > 0" -->
+        <div class="tile-body">
+          <div class="table-responsive">
+            <table ng-if="authorized" datatable="" dt-options="dtOptions" style="width: 100% !important;" dt-columns="dtColumns" class="table table-custom">
+              <tr ng-repeat="userroleclient in userRoleClientMappingDetails">
+                <td>{{userroleclient.username}}</td>
+                <td>{{userroleclient.clientname}}</td>
+                <td>{{userroleclient.rolename}}</td>
+                <td style="width:12.5%;vertical-align: middle;">
+                  <button class="btn btn-default btn-rounded  mb-10" ng-click="editData(userroleclient.userroleclientid)"><span>Edit</span></button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!-- /tile body -->
+      </section>
+      <!-- /tile -->
+    </div>
+    <!-- /col -->
+  </div>
+  <!-- /row -->
+
+</div>
+<!-- /page content -->
+
+</div>

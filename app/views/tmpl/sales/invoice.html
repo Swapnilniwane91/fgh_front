@@ -1,0 +1,297 @@
+<div class="page page-single-order" ng-controller="saleInvoiceCtrl">
+    <!-- page header -->
+    <div class="pageheader">
+        <h2>{{page.title}} <span> {{page.subtitle}}</span></h2>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i> Home</a>
+                </li>
+                <li>
+                    <a href="javascript:;">{{page.title}}</a>
+                </li>
+                <li>
+                    <a ui-sref="app.shop.single-order">{{page.subtitle}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- /page header -->
+
+    <!-- page content -->
+    <div class="pagecontent">
+
+        <div class="add-nav">
+            <div class="nav-heading">
+                <h3>Invoice Details : <strong class="text-greensea">{{invoice_detail.customer_invoice.sale_policy_invoice[3]}}{{invoice_detail.customer_invoice.sale_ew_invoice[3]}}</strong></h3>
+                <span class="controls pull-right">
+          <a ui-sref="app.sale.sales" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20 mr-5" uib-tooltip="Back"><i class="fa fa-times"></i></a>
+          <a href="javascript:window.print()" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20" uib-tooltip="Print"><i class="fa fa-print"></i></a>
+        </span>
+            </div>
+            <uib-tabset>
+                <uib-tab heading="Details">
+                    <!-- row -->
+                    <div class="row">
+                        <!-- col -->
+                        <div class="col-md-12">
+                            <!-- tile -->
+                            <section class="tile time-simple">
+                                <!-- tile body -->
+                                <div class="tile-body">
+                                    <!-- row -->
+                                    <div class="row">
+                                        <!-- col -->
+                                        <div class="text-center">
+                                            <h4 class="text-uppercase text-strong mt-40 mb-20 custom-font">Invoice for Mobile Protect Plan</h4>
+                                        </div>
+                                    </div>
+                                    <!-- /col -->
+
+                                    <!-- col -->
+                                    <div class="row b-t pt-20">
+                                        <div class="col-md-6 b-r">
+                                            <p class="text-uppercase text-strong mb-10 custom-font">Invoice Raised To</p>
+                                            <ul class="list-unstyled text-default lt mb-20">
+                                                <!-- <li><strong class="inline-block w-xs">Name:</strong> DG Mobile Service</li>
+                                                <li><strong class="inline-block w-xs">Address:</strong> GA-27 & 28, Ground Floor, Lake City Mall, Kapurbawdi, Thane (West) - 400 601 Maharashtra, India</li>
+                                                <li><strong class="inline-block w-xs">Phone:</strong> 069 654 5662</li>
+                                                <li><strong class="inline-block w-xs">Email:</strong> <a href="javascript:;">john.douey@gmail.com</a></li> -->
+                                                <li><strong class="inline-block w-xs">Name:</strong>{{current_customer[2].firstName}}&nbsp;{{current_customer[2].lastName}}</li>
+                                                <li><strong class="inline-block w-xs">Address:</strong> {{current_customer[3].dnumber}},&nbsp;{{current_customer[3].street}},&nbsp;{{current_customer[3].address2}},&nbsp;{{current_customer[3].pinCode}}</li>
+                                                <li><strong class="inline-block w-xs">Phone:</strong>{{current_customer[2].contactNo}}</li>
+                                                <li><strong class="inline-block w-xs">Email:</strong> <a href="javascript:;">{{current_customer[2].email}}</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- /col -->
+
+                                        <div class="col-md-6">
+                                            <p class="text-uppercase text-strong mb-10 custom-font">Invoice</p>
+                                            <ul class="list-unstyled text-default lt mb-20">
+                                                <!-- <li><strong class="inline-block w-xs">VAT TIN:</strong> 27080730217V</li>
+                                                <li><strong class="inline-block w-xs">CST No.:</strong> 27080730217C</li>
+                                                <li><strong class="inline-block w-xs">Service Tax No.:</strong> AADCT4870HSD001</li>
+                                                <li><strong class="inline-block w-xs">PAN:</strong> ALOPG8765B</li> -->
+                                                <li><strong class="inline-block w-xs">Invoice No:</strong> {{invoice_detail.customer_invoice.sale_policy_invoice[3]}}{{invoice_detail.customer_invoice.sale_ew_invoice[3]}}</li>
+                                                <li><strong class="inline-block w-xs">Date of Invoice:</strong>{{invoice_detail.customer_invoice.sale_policy_invoice[5]}}</li>
+                                                <li><strong class="inline-block w-xs">Policy No:</strong>{{current_customer[4].policyId}}</li>
+                                                <li><strong class="inline-block w-xs">Mode/Terms of Payment:</strong>Cash</li>
+                                                <li><strong class="inline-block w-xs">IMEI Number:</strong> {{current_customer[1].imeiNo}}</li>
+                                            </ul>
+                                        </div>
+                                        <!-- /col -->
+
+                                    </div>
+
+                                    <div class="row b-t pt-20">
+                                        <div class="col-md-12">
+                                            <p class="text-uppercase text-strong mb-10 custom-font">Seller details</p>
+                                            <ul class="list-unstyled text-default lt mb-20">
+                                                <li><strong class="inline-block w-xs">Name:</strong> DG Mobile Service</li>
+                                                <li><strong class="inline-block w-xs">Address:</strong> GA-27 & 28, Ground Floor, Lake City Mall, Kapurbawdi, Thane (West) - 400 601 Maharashtra, India</li>
+                                                <li><strong class="inline-block w-xs">Phone:</strong> 069 654 5662</li>
+                                                <li><strong class="inline-block w-xs">Email:</strong> <a href="javascript:;">john.douey@gmail.com</a></li>
+                                            </ul>
+                                        </div>
+                                        <!-- /col -->
+
+                                    </div>
+                                    <!-- /row -->
+                                    <!-- <div class="row b-t pt-20">
+                                        <div class="col-md-10">
+                                            <p class="text-uppercase text-strong mb-10 custom-font">Company's Detail</p>
+                                            <ul class="list-unstyled text-default lt mb-20">
+                                                <!-- <li><strong class="inline-block w-md">Handset Details:</strong> Motorola Moto G4 Plus</li>
+                                                <li><strong class="inline-block w-md">IMEI Number:</strong> {{current.customer[1].imeiNo}}</li>
+                                                <li><strong class="inline-block w-md">Date of purchase of handset:</strong>{{current.customer[1].dop}}</li> -->
+                                    <!-- <li><strong class="inline-block w-md">VAT TIN:</strong> 27080730217V</li>
+                                                <li><strong class="inline-block w-md">CST No.:</strong> 27080730217C</li>
+                                                <li><strong class="inline-block w-md">Service Tax No.:</strong> AADCT4870HSD001</li>
+                                                <li><strong class="inline-block w-md">PAN:</strong> ALOPG8765B</li>
+                                            </ul>
+                                        </div>
+                                    </div> -->
+
+                                    <!-- row -->
+                                    <div class="row b-t pt-20">
+
+
+                                        <!-- col -->
+                                        <!-- <div class="col-md-3 b-r">
+                                            <!-- <p class="text-uppercase text-strong mb-10 custom-font">Order Details</p>
+                                            <ul class="list-unstyled text-default lt mb-20">
+                                                <li><strong>ID:</strong> <a href="javascript:;">35651</a></li>
+                                                <li>January 29, 2015 at 16:58</li>
+                                                <li>John Douey</li>
+                                                <li>Ukraine</li>
+                                            </ul> -->
+
+
+                                        <!-- </div> -->
+                                        <!-- /col -->
+
+                                        <!-- col -->
+                                        <div class="col-md-6">
+                                            <!-- <p class="text-uppercase text-strong mb-10 custom-font">
+                                                Address
+                                                <a href="javascript:;" class="btn btn-default btn-rounded-20 btn-xs pull-right"><i class="fa fa-pencil"></i></a>
+                                            </p> -->
+                                            <p class="text-uppercase text-strong mb-20 custom-font">Invoice Particulars</p>
+                                            <!-- col -->
+
+                                            <!-- <ul class="list-unstyled text-default lt mb-20">
+                                                    <li>John Douey</li>
+                                                    <li>Vajnorska 512</li>
+                                                    <li>Bratislava, Bratislava 1</li>
+                                                    <li>811 09</li>
+                                                </ul> -->
+
+                                            <ul class="list-unstyled text-default lt mb-20">
+                                                <!-- <li><strong class="inline-block w-xs">VAT TIN:</strong> 27080730217V</li>
+                                                    <li><strong class="inline-block w-xs">CST No.:</strong> 27080730217C</li>
+                                                    <li><strong class="inline-block w-xs">Service Tax No.:</strong> AADCT4870HSD001</li>
+                                                    <li><strong class="inline-block w-xs">PAN:</strong> ALOPG8765B</li> -->
+                                                <!-- <li><strong class="inline-block w-xs">Handset Details:</strong> Motorola Moto G4 Plus</li>
+                                                    <li><strong class="inline-block w-xs">IMEI Number:</strong> {{current_customer[1].imeiNo}}</li>
+                                                    <li><strong class="inline-block w-xs">DOP of handset:</strong>{{current_customer[1].dop}}</li> -->
+                                                <!-- <p class="text-uppercase text-strong mb-10 custom-font">Delivery Details</p>
+                                                    <ul class="list-unstyled text-default lt mb-20"> -->
+                                                <li><strong class="inline-block w-xs">Delivery Note:</strong> NA</li>
+                                                <li><strong class="inline-block w-xs">Suppliers Ref:</strong> NA</li>
+                                                <li><strong class="inline-block w-xs">Buyer's Order No:</strong> NA</li>
+                                                <!-- </ul> -->
+                                            </ul>
+
+                                            <!-- /col -->
+
+                                            <!-- col -->
+                                            <div class="col-md-6">
+                                                <!-- <ul class="list-unstyled text-default lt mb-20">
+                                                    <li>john.douey@gmail.com</li>
+                                                    <li>655 169 4599</li>
+                                                </ul> -->
+                                            </div>
+                                            <!-- /col -->
+
+                                        </div>
+                                        <!-- /col -->
+
+                                        <!-- col -->
+                                        <div class="col-md-6">
+                                            <!-- <p class="text-uppercase text-strong mb-10 custom-font">Delivery & Payment</p>
+                                            <ul class="list-unstyled text-default lt mb-20">
+                                                <li><strong>Delivery:</strong> Pick-Up</li>
+                                                <li><strong>Payment:</strong> Cash</li>
+                                            </ul> -->
+                                            <p class="text-uppercase text-strong mb-20 custom-font">Company's Detail</p>
+                                            <ul class="list-unstyled text-default lt mb-20">
+                                                <!-- <li><strong class="inline-block w-md">Handset Details:</strong> Motorola Moto G4 Plus</li>
+                                                <li><strong class="inline-block w-md">IMEI Number:</strong> {{current.customer[1].imeiNo}}</li>
+                                                <li><strong class="inline-block w-md">Date of purchase of handset:</strong>{{current.customer[1].dop}}</li> -->
+                                                <li><strong class="inline-block w-xs">VAT TIN:</strong> 27080730217V</li>
+                                                <li><strong class="inline-block w-xs">CST No:</strong> 27080730217C</li>
+                                                <li><strong class="inline-block w-xs">Service Tax No:</strong> AADCT4870HSD001</li>
+                                                <li><strong class="inline-block w-xs">PAN:</strong> ALOPG8765B</li>
+                                            </ul>
+
+                                        </div>
+                                        <!-- /col -->
+
+                                    </div>
+                                    <!-- /row -->
+
+
+                                </div>
+                                <!-- /tile body -->
+
+                            </section>
+                            <!-- /tile -->
+
+
+                            <!-- tile -->
+                            <section class="tile tile-simple">
+
+                                <!-- tile body -->
+                                <div class="tile-body p-0">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sr No.</th>
+                                                    <th>Description of Goods</th>
+                                                    <th>Quantity</th>
+                                                    <th>Rate</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><a href="javascript:;">1</a></td>
+                                                    <td>{{current_customer[4].plan}}</td>
+                                                    <td>1</td>
+                                                    <td>{{invoice_detail.customer_invoice.sale_policy_invoice[4]}}{{invoice_detail.customer_invoice.sale_ew_invoice[4]}}</td>
+                                                    <td>{{invoice_detail.customer_invoice.sale_policy_invoice[4]}}{{invoice_detail.customer_invoice.sale_ew_invoice[4]}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+                                <!-- /tile body -->
+
+                            </section>
+                            <!-- /tile -->
+
+
+                        </div>
+                        <!-- /col -->
+                    </div>
+                    <!-- /row -->
+
+                    <!-- row -->
+                    <div class="row">
+                        <!-- col -->
+                        <div class="col-md-3 col-md-offset-9 price-total">
+
+                            <!-- tile -->
+                            <section class="tile tile-simple bg-tr-black lter">
+
+                                <!-- tile body -->
+                                <div class="tile-body">
+
+                                    <ul class="list-unstyled">
+                                        <li><strong class="inline-block w-sm mb-5">Gross Total:</strong> {{invoice_detail.customer_invoice.sale_policy_invoice[4]}}{{invoice_detail.customer_invoice.sale_ew_invoice[4]}}</li>
+                                        <!-- <li><strong class="inline-block w-sm mb-5">Round Off Amount:</strong></li> -->
+                                        <li><strong class="inline-block w-sm mb-5">Net Total:</strong>
+                                            <h3 class="inline-block text-success">{{invoice_detail.customer_invoice.sale_policy_invoice[4]}}{{invoice_detail.customer_invoice.sale_ew_invoice[4]}}</h3>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                <!-- /tile body -->
+
+                            </section>
+                            <!-- /tile -->
+
+                        </div>
+                        <!-- /col -->
+                    </div>
+                    <!-- /row -->
+
+
+
+                </uib-tab>
+            </uib-tabset>
+        </div>
+
+
+
+    </div>
+    <!-- /page content -->
+
+
+
+
+</div>

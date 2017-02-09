@@ -1,0 +1,112 @@
+<div class="page page-tables-bootstrap" ng-controller="pincodeMasterCtrl">
+
+  <!-- page header -->
+  <div class="pageheader">
+    <h2>Pincode Master</h2>
+    <div class="page-bar">
+
+      <ul class="page-breadcrumb">
+        <li>
+          <a ui-sref="app.dashboard"><i class="fa fa-home"></i>Home</a>
+        </li>
+        <li>
+          <a ui-sref="app.master.pincodeMaster">Pincode Master</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+  <!-- /page header -->
+
+  <!-- page content -->
+  <div class="pagecontent">
+
+    <!-- row -->
+    <!-- ng-show="Mapped" -->
+    <div class="row">
+      <div class="col-md-12">
+        <!-- tile -->
+        <section class="tile" fullscreen="isFullscreen01">
+
+          <!-- tile header -->
+          <div class="tile-header dvd dvd-btm">
+            <h1 class="custom-font"><strong>Add New Pincode</strong></h1>
+          </div>
+          <!-- /tile header -->
+
+          <!-- tile body -->
+          <div class="tile-body">
+
+            <form class="form-horizontal" role="form">
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                    <label class="col-sm-4 control-label">
+                    Enter Pincode<span style="color:red">*</span></label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" ng-model="pincode" maxlength="6" numb-only ng-change="zipChanges(pincode)">
+                      <span class="text-red" ng-if="zipErrors">{{zipErrors}}</span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">
+                      Select State  <span style="color:red">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                      <select class="form-control" ng-model="selectedState" ng-change="getDistrics(selectedState)" ng-disabled = "isState">
+                        <option value="">---- Please Select ----</option>
+                        <option ng-repeat="statelist in getState" value="{{statelist.stateId}}">{{statelist.stateName}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- /col-md-6 -->
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">
+                       Select Country <span style="color:red">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                      <select class="form-control" ng-model="selectedcountry" ng-change="getStates(selectedcountry)" >
+                        <option value="">---- Please Select ----</option>
+                        <option ng-repeat="countrylist in getCountries" value="{{countrylist.countryId}}">{{countrylist.countryName}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">
+                    Select District<span style="color:red">*</span>
+                    </label>
+                    <div class="col-sm-8">
+                      <select class="form-control" ng-model="selecteddistrict" ng-disabled = "isDistrict"> 
+                        <option value="">---- Please Select ----</option>
+                        <option ng-repeat="districtlist in getDistrict" value="{{districtlist.districtId}}">{{districtlist.districtName}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>               
+              </div>
+              <!-- /col-md-6 -->
+              <div class="form-group" style="text-align:center;">
+                <button type="submit" ng-click="submitData()" ng-disabled="!pincode || !selecteddistrict || !selectedcountry || !selectedState || zipErrors" class="btn btn-primary">
+                {{buttonSubmit}}
+                </button>
+                <button type="reset" ng-click="reset()" class="btn btn-danger">Clear</button>
+              </div>
+          </div>
+          <!-- /row-->
+          </form>
+
+      </div>
+      <!-- /tile body -->
+
+      </section>
+      <!-- /tile -->
+    </div>
+  </div>
+  <!-- /row -->
+
+</div>
+<!-- /page content -->

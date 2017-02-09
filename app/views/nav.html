@@ -1,0 +1,741 @@
+<style>
+  .panel-heading {
+    display: none;
+  }
+
+  #navigation li ul li {
+    cursor: pointer !important;
+  }
+</style>
+<div id="sidebar-wrap" ng-controller="NavCtrl">
+  <uib-accordion close-others="oneAtTime" slimscroll="{height: '100%'}">
+    <uib-accordion-group is-open="status.isFirstOpen">
+      <!-- <uib-accordion-heading>
+        Navigation <i class="pull-right fa" ng-class="{'fa-angle-up': status.isFirstOpen, 'fa-angle-down': !status.isFirstOpen}"></i>
+      </uib-accordion-heading> -->
+      <ul id="navigation" nav-collapse ripple>
+        <li ui-sref-active="active">
+          <a ui-sref="app.dashboard">
+            <fa name="dashboard"></fa><span>{{ 'Menu.DASHBOARD' | translate }}</span></a>
+        </li>
+        <li ui-sref-active="active" has-permission="superadmin">
+          <a href="javascript:;">
+            <fa name="magic"></fa> <span>{{ 'Menu.SUPERADMIN' | translate }}</span></a>
+          <ul>
+            <li>
+              <a href="javascript:;">
+                <fa name="caret-right"></fa> {{ 'Menu.Master' | translate }}</a>
+              <ul>
+                <!-- has-permission= "addEntity" -->
+                <!-- <li has-permission="dragIt">
+                  <a ui-sref="app.master.dragIt">
+                    <fa name="caret-right"></fa> Drag it!!</a>
+                  </li> -->
+                <li has-permission="centerMaster">
+                    <a ui-sref="app.master.centerMaster">
+                      <fa name="caret-right"></fa> {{ 'Menu.CENTER_MASTER' | translate }}</a>
+                  </li>
+                <li has-permission="clientMaster">
+                  <a ui-sref="app.master.clientMaster">
+                    <fa name="caret-right"></fa> {{'Menu.CLIENT_MASTER' | translate}}</a>
+                </li>
+                <li has-permission="editCustomer">
+                  <a ui-sref="app.master.editCustomer">
+                    <fa name="caret-right"></fa> {{ 'Menu.EDIT_CUSTOMER' | translate}}</a>
+                </li>
+                <li has-permission="failTypeMaster">
+                  <a ui-sref="app.master.failTypeMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.FAIL_TYPE_MASTER' | translate }}</a>
+                </li>
+                <li has-permission="addLoanerDevice">
+                  <a ui-sref="app.addLoanerDevice">
+                    <fa name="caret-right"></fa> {{ 'Menu.LOANER_MASTER' | translate}}</a>
+                </li>
+                <li has-permission="modelMaster">
+                  <a ui-sref="app.master.modelMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.ADD_MODEL' | translate}}</a>
+                </li>
+                <li  has-permission="oemMaster">
+                  <a ui-sref="app.master.oemMaster">
+                      <fa name="caret-right"></fa> {{ 'Menu.OEM_MASTER' | translate}}</a>
+                </li>
+                <li has-permission="pageMaster">
+                  <a ui-sref="app.master.pageMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.PAGE_MASTER' | translate }}</a>
+                </li>
+                <li has-permission="pincodeMaster">
+                  <a ui-sref="app.master.pincodeMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.ADD_PINCODE' | translate}}</a>
+                </li>
+                <li has-permission="problemCategoryMaster">
+                  <a ui-sref="app.master.problemCategoryMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.PROBLEM_CATEGORY_MASTER' | translate }}</a>
+                </li>
+                <li has-permission="problemDescriptionMaster">
+                  <a ui-sref="app.master.problemDescriptionMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.PROBLEM_DESCRIPTION_MASTER' | translate }}</a>
+                </li>
+                <li has-permission="productMaster">
+                  <a ui-sref="app.master.productMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.ADD_PRODUCT' | translate}}</a>
+                </li>
+                <li  has-permission="roleMaster">
+                  <a ui-sref="app.master.roleMaster">
+                      <fa name="caret-right"></fa> {{ 'Menu.ROLE_MASTER' | translate}}</a>
+                </li>
+                <li has-permission="taxMaster">
+                  <a ui-sref="app.master.taxMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.TAX_MASTER' | translate}}</a>
+                </li>
+                <li has-permission="userMaster">
+                  <a ui-sref="app.master.userMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.ADD_USER' | translate}}</a>
+                </li>
+                <li has-permission="importCustomerBase">
+                  <a ui-sref="app.importCustomerBase">
+                    <fa name="caret-right"></fa> {{ 'Menu.IMPORT_CUSTOMER_BASE' | translate}}</a>
+                </li>
+                <li has-permission="logisticsLoanerMapping">
+                  <a ui-sref="app.master.logisticsLoanerMapping">
+                    <fa name="caret-right"></fa>Logistic Loaner Mapping</a>
+                </li>
+                <li has-permission="pincodeLogisticMapping">
+                  <a ui-sref="app.master.pincodeLogisticMapping">
+                    <fa name="caret-right"></fa>Pincode Logistic Mapping </a>
+                </li>
+                <li has-permission="pincodeServiceCenterMapping">
+                    <a ui-sref="app.master.pincodeServiceCenterMapping">
+                      <fa name="caret-right"></fa>Pincode ServiceCenter Mapping </a>
+                  </li>
+                  <li has-permission="problemCategoryDescriptionMapping">
+                    <a ui-sref="app.master.problemCategoryDescriptionMapping">
+                      <fa name="caret-right"></fa>Problem CategoryDesc Mapping </a>
+                  </li>
+                  <li has-permission="stateTaxMapping">
+                    <a ui-sref="app.master.stateTaxMapping">
+                      <fa name="caret-right"></fa>{{'Menu.STATE_TAX_MAPPING' | translate}} </a>
+                  <li has-permission="clientOemMapping">
+                    <a ui-sref="app.master.clientOemMapping">
+                      <fa name="caret-right"></fa>Client OEM Mapping </a>
+                  </li>
+                  <li has-permission="rolePageMapping">
+                    <a ui-sref="app.master.rolePageMapping">
+                      <fa name="caret-right"></fa>Role Page Mapping </a>
+                  </li>
+                  <li has-permission="modelPlanMapping">
+                    <a ui-sref="app.master.modelPlanMapping">
+                      <fa name="caret-right"></fa>Model Plan Mapping </a>
+                  </li>
+                <li has-permission="userRoleClientMapping">
+                  <a ui-sref="app.master.userRoleClientMapping">
+                    <fa name="caret-right"></fa> {{'Menu.USER_ROLE_MAPPING' | translate}}</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="javascript:;">
+                <fa name="caret-right"></fa> {{ 'Menu.REPORT' | translate }}</a>
+              <ul>
+                <!-- <li has-permission = "dailyTracker">
+                    <a ui-sref="app.dailytracker">
+                        <fa name="caret-right"></fa> {{ 'Menu.DAILY_TRACKER_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "logisticStatus">
+                    <a ui-sref="app.logisticstatus">
+                        <fa name="caret-right"></fa> {{ 'Menu.LOGISTICS_STATUS_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "masterReport" >
+                    <a ui-sref="app.masterreport">
+                        <fa name="caret-right"></fa> {{ 'Menu.MASTER_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "monthlyTracker" >
+                    <a ui-sref="app.monthlytracker">
+                        <fa name="caret-right"></fa> {{ 'Menu.MONTHLY_TRACKER_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "sealAllotment" >
+                    <a ui-sref="app.sealallotment">
+                        <fa name="caret-right"></fa> {{ 'Menu.SEAL_ALLOTMENT_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "srDetails" >
+                    <a ui-sref="app.srdetails">
+                        <fa name="caret-right"></fa> {{ 'Menu.SR_DETAILS_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "srReportLocation">
+                    <a ui-sref="app.srreportlocation">
+                        <fa name="caret-right"></fa> {{ 'Menu.SR_REPORT_LOCATION_WISE' | translate }}</a>
+                </li>
+                <li has-permission = "srSummary">
+                    <a ui-sref="app.srsummary">
+                        <fa name="caret-right"></fa> {{ 'Menu.SR_SUMMARY_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "ticketSummaryReport">
+                    <a ui-sref="app.ticketsummary">
+                        <fa name="caret-right"></fa> {{ 'Menu.TICKET_SUMMARY_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "trackLog">
+                    <a ui-sref="app.tracklog">
+                        <fa name="caret-right"></fa> {{ 'Menu.TRACK_LOGISTICS_LOCATION' | translate }}</a>
+                </li>
+                <li has-permission = "unusedSeal" >
+                    <a ui-sref="app.unusedseal">
+                        <fa name="caret-right"></fa> {{ 'Menu.UNUSED_SEAL_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "viewCustomerBase" >
+                    <a ui-sref="app.viewcustomer">
+                        <fa name="caret-right"></fa> {{ 'Menu.VIEW_CUSTOMER_BASE' | translate }}</a>
+                </li> -->
+              </ul>
+            </li>
+
+            <li>
+              <a href="javascript:;">
+                <fa name="caret-right"></fa> {{ 'Menu.TRANSACTION' | translate }}</a>
+              <ul>
+                <!-- <li has-permission = "addChecklist" >
+                    <a ui-sref="app.addchecklist">
+                        <fa name="caret-right"></fa> {{ 'Menu.ADD_CHECK_LIST' | translate }}</a>
+                </li>
+                <li has-permission = "addSealNumber" >
+                    <a ui-sref="app.addSealNumber">
+                        <fa name="caret-right"></fa> {{ 'Menu.ADD_SEAL_NUMBER' | translate }}</a>
+                </li>
+                <li has-permission = "deliveryAssignment" >
+                    <a ui-sref="app.deliveryAssignment">
+                        <fa name="caret-right"></fa> {{ 'Menu.DELIVERY_ASSIGNMENT' | translate }}</a>
+                </li>
+                <li has-permission = "deliveryList">
+                    <a ui-sref="app.deliverylist">
+                        <fa name="caret-right"></fa> {{ 'Menu.DELIVERY_LIST' | translate }}</a>
+                </li>
+                <li has-permission = "engineerScreening">
+                    <a ui-sref="app.engineerscreening">
+                        <fa name="caret-right"></fa> {{ 'Menu.ENGINEER_SCREENING' | translate }}</a>
+                </li>
+                <li has-permission = "nonTangibleRepairDetails">
+                    <a ui-sref="app.nontangiblerepair">
+                        <fa name="caret-right"></fa> {{ 'Menu.NON_TANGIBLE_REPAIR_DETAILS' | translate }}</a>
+                </li>
+                <li has-permission = "serviceAssignmentList">
+                    <a ui-sref="app.serviceassignment">
+                        <fa name="caret-right"></fa> {{ 'Menu.SERVICE_ASSIGNMENT_LIST' | translate }}</a>
+                </li>
+                <li has-permission = "serviceRequest">
+                    <a ui-sref="app.pickuprequest">
+                        <fa name="caret-right"></fa> {{ 'Menu.PICKUP_REQUEST' | translate }}</a>
+                </li>
+                <li has-permission = "serviceRequestDetail">
+                    <a ui-sref="app.pickupreqdetail">
+                        <fa name="caret-right"></fa> {{ 'Menu.PICKUP_REQUEST_DETAIL' | translate }}</a>
+                </li>
+                <li has-permission = "sealAllotment">
+                    <a ui-sref="app.sealallotment">
+                        <fa name="caret-right"></fa> {{ 'Menu.SEAL_ALLOTMENT' | translate }}</a>
+                </li>
+                <li has-permission = "storeUnitCollectionList">
+                    <a ui-sref="app.storeunitcollection">
+                        <fa name="caret-right"></fa> {{ 'Menu.STORE_UNIT_COLLECTION_LIST' | translate }}</a>
+                </li>
+                <li has-permission = "ticketDetail">
+                    <a ui-sref="app.ticketdetail">
+                        <fa name="caret-right"></fa> {{ 'Menu.TICKET_DETAIL' | translate }}</a>
+                </li>
+                <li has-permission = "unitDispatchList">
+                    <a ui-sref="app.unitdispatch">
+                        <fa name="caret-right"></fa> {{ 'Menu.UNIT_DISPATCH_LIST' | translate }}</a>
+                </li>
+                <li has-permission = "unitEstimateList">
+                    <a ui-sref="app.unitestimation">
+                        <fa name="caret-right"></fa> {{ 'Menu.UNIT_ESTIMATION_LIST' | translate }}</a>
+                </li>
+                <li has-permission = "unitPickupFromCustomer" >
+                    <a ui-sref="app.unitpickupfromcustomer">
+                        <fa name="caret-right"></fa> {{ 'Menu.UNIT_PICKUP_FROM_CUSTOMER' | translate }}</a>
+                </li>
+                <li has-permission = "unitPickupFromStore" >
+                    <a ui-sref="app.unitpickupfromstore">
+                        <fa name="caret-right"></fa> {{ 'Menu.UNIT_PICKUP_FROM_STORE' | translate }}</a>
+                </li>
+                <li has-permission = "viewOpenServiceRequest">
+                    <a ui-sref="app.viewopenpickup">
+                        <fa name="caret-right"></fa> {{ 'Menu.VIEW_OPEN_PICKUP_REQUESTS' | translate }}</a>
+                </li> -->
+              </ul>
+            </li>
+
+          </ul>
+        </li>
+
+        <li ui-sref-active="active" has-permission="admin">
+          <a href="javascript:;">
+            <fa name="magic"></fa> <span>{{ 'Menu.ADMIN' | translate }}</span></a>
+          <ul>
+            <li>
+              <a href="javascript:;">
+                <fa name="caret-right"></fa> {{ 'Menu.Master' | translate }}</a>
+              <ul>
+                <li has-permission="centerMaster">
+                    <a ui-sref="app.master.centerMaster">
+                      <fa name="caret-right"></fa> {{ 'Menu.CENTER_MASTER' | translate }}</a>
+                  </li>
+                <li has-permission="clientMaster">
+                  <a ui-sref="app.master.clientMaster">
+                    <fa name="caret-right"></fa> {{'Menu.CLIENT_MASTER' | translate}}</a>
+                </li>
+                <li has-permission="editCustomer">
+                  <a ui-sref="app.master.editCustomer">
+                    <fa name="caret-right"></fa> {{ 'Menu.EDIT_CUSTOMER' | translate}}</a>
+                </li>
+                <li has-permission="failTypeMaster">
+                  <a ui-sref="app.master.failTypeMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.FAIL_TYPE_MASTER' | translate }}</a>
+                </li>
+                <li has-permission="addLoanerDevice">
+                  <a ui-sref="app.addLoanerDevice">
+                    <fa name="caret-right"></fa> {{ 'Menu.LOANER_MASTER' | translate}}</a>
+                </li>
+                <li has-permission="modelMaster">
+                  <a ui-sref="app.master.modelMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.ADD_MODEL' | translate}}</a>
+                </li>
+                <li  has-permission="oemMaster">
+                  <a ui-sref="app.master.oemMaster">
+                      <fa name="caret-right"></fa> {{ 'Menu.OEM_MASTER' | translate}}</a>
+                </li>
+                <li has-permission="pageMaster">
+                  <a ui-sref="app.master.pageMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.PAGE_MASTER' | translate }}</a>
+                </li>
+                <li has-permission="pincodeMaster">
+                  <a ui-sref="app.master.pincodeMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.ADD_PINCODE' | translate}}</a>
+                </li>
+                <li has-permission="problemCategoryMaster">
+                  <a ui-sref="app.master.problemCategoryMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.PROBLEM_CATEGORY_MASTER' | translate }}</a>
+                </li>
+                <li has-permission="problemDescriptionMaster">
+                  <a ui-sref="app.master.problemDescriptionMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.PROBLEM_DESCRIPTION_MASTER' | translate }}</a>
+                </li>
+                <li has-permission="productMaster">
+                  <a ui-sref="app.master.productMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.ADD_PRODUCT' | translate}}</a>
+                </li>
+                <li  has-permission="roleMaster">
+                  <a ui-sref="app.master.roleMaster">
+                      <fa name="caret-right"></fa> {{ 'Menu.ROLE_MASTER' | translate}}</a>
+                </li>
+                <li has-permission="taxMaster">
+                  <a ui-sref="app.master.taxMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.TAX_MASTER' | translate}}</a>
+                </li>
+                <li has-permission="userMaster">
+                  <a ui-sref="app.master.userMaster">
+                    <fa name="caret-right"></fa> {{ 'Menu.ADD_USER' | translate}}</a>
+                </li>
+                <!-- <li has-permission="importCustomerBase">
+                  <a ui-sref="app.importCustomerBase">
+                    <fa name="caret-right"></fa> {{ 'Menu.IMPORT_CUSTOMER_BASE' | translate}}</a>
+                </li> -->
+                <li has-permission="logisticsLoanerMapping">
+                  <a ui-sref="app.master.logisticsLoanerMapping">
+                    <fa name="caret-right"></fa>Logistic Loaner Mapping</a>
+                </li>
+                <li has-permission="pincodeLogisticMapping">
+                  <a ui-sref="app.master.pincodeLogisticMapping">
+                    <fa name="caret-right"></fa>Pincode Logistic Mapping </a>
+                </li>
+                <li has-permission="pincodeServiceCenterMapping">
+                    <a ui-sref="app.master.pincodeServiceCenterMapping">
+                      <fa name="caret-right"></fa>Pincode ServiceCenter Mapping </a>
+                  </li>
+                  <li has-permission="problemCategoryDescriptionMapping">
+                    <a ui-sref="app.master.problemCategoryDescriptionMapping">
+                      <fa name="caret-right"></fa>Problem CategoryDesc Mapping </a>
+                  </li>
+                  <li has-permission="stateTaxMapping">
+                    <a ui-sref="app.master.stateTaxMapping">
+                      <fa name="caret-right"></fa>{{'Menu.STATE_TAX_MAPPING' | translate}} </a>
+                  <li has-permission="clientOemMapping">
+                    <a ui-sref="app.master.clientOemMapping">
+                      <fa name="caret-right"></fa>Client OEM Mapping </a>
+                  </li>
+                  <li has-permission="rolePageMapping">
+                    <a ui-sref="app.master.rolePageMapping">
+                      <fa name="caret-right"></fa>Role Page Mapping </a>
+                  </li>
+                  <li has-permission="modelPlanMapping">
+                    <a ui-sref="app.master.modelPlanMapping">
+                      <fa name="caret-right"></fa>Model Plan Mapping </a>
+                  </li>
+                <li has-permission="userRoleClientMapping">
+                  <a ui-sref="app.master.userRoleClientMapping">
+                    <fa name="caret-right"></fa> {{'Menu.USER_ROLE_MAPPING' | translate}}</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="javascript:;">
+                <fa name="caret-right"></fa> {{ 'Menu.REPORT' | translate }}</a>
+              <ul>
+                <!-- <li has-permission = "dailyTracker">
+                    <a ui-sref="app.dailytracker">
+                        <fa name="caret-right"></fa> {{ 'Menu.DAILY_TRACKER_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "logisticStatus">
+                    <a ui-sref="app.logisticstatus">
+                        <fa name="caret-right"></fa> {{ 'Menu.LOGISTICS_STATUS_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "masterReport" >
+                    <a ui-sref="app.masterreport">
+                        <fa name="caret-right"></fa> {{ 'Menu.MASTER_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "monthlyTracker" >
+                    <a ui-sref="app.monthlytracker">
+                        <fa name="caret-right"></fa> {{ 'Menu.MONTHLY_TRACKER_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "sealAllotment" >
+                    <a ui-sref="app.sealallotment">
+                        <fa name="caret-right"></fa> {{ 'Menu.SEAL_ALLOTMENT_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "srDetails" >
+                    <a ui-sref="app.srdetails">
+                        <fa name="caret-right"></fa> {{ 'Menu.SR_DETAILS_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "srReportLocation">
+                    <a ui-sref="app.srreportlocation">
+                        <fa name="caret-right"></fa> {{ 'Menu.SR_REPORT_LOCATION_WISE' | translate }}</a>
+                </li>
+                <li has-permission = "srSummary">
+                    <a ui-sref="app.srsummary">
+                        <fa name="caret-right"></fa> {{ 'Menu.SR_SUMMARY_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "ticketSummaryReport">
+                    <a ui-sref="app.ticketsummary">
+                        <fa name="caret-right"></fa> {{ 'Menu.TICKET_SUMMARY_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "trackLog">
+                    <a ui-sref="app.tracklog">
+                        <fa name="caret-right"></fa> {{ 'Menu.TRACK_LOGISTICS_LOCATION' | translate }}</a>
+                </li>
+                <li has-permission = "unusedSeal" >
+                    <a ui-sref="app.unusedseal">
+                        <fa name="caret-right"></fa> {{ 'Menu.UNUSED_SEAL_REPORT' | translate }}</a>
+                </li>
+                <li has-permission = "viewCustomerBase" >
+                    <a ui-sref="app.viewcustomer">
+                        <fa name="caret-right"></fa> {{ 'Menu.VIEW_CUSTOMER_BASE' | translate }}</a>
+                </li> -->
+              </ul>
+            </li>
+
+            <li>
+              <a href="javascript:;">
+                <fa name="caret-right"></fa> {{ 'Menu.TRANSACTION' | translate }}</a>
+              <ul>
+                <!-- <li has-permission = "addChecklist" >
+                    <a ui-sref="app.addchecklist">
+                        <fa name="caret-right"></fa> {{ 'Menu.ADD_CHECK_LIST' | translate }}</a>
+                </li>
+                <li has-permission = "addSealNumber" >
+                    <a ui-sref="app.addSealNumber">
+                        <fa name="caret-right"></fa> {{ 'Menu.ADD_SEAL_NUMBER' | translate }}</a>
+                </li>
+                <li has-permission = "deliveryAssignment" >
+                    <a ui-sref="app.deliveryAssignment">
+                        <fa name="caret-right"></fa> {{ 'Menu.DELIVERY_ASSIGNMENT' | translate }}</a>
+                </li>
+                <li has-permission = "deliveryList">
+                    <a ui-sref="app.deliverylist">
+                        <fa name="caret-right"></fa> {{ 'Menu.DELIVERY_LIST' | translate }}</a>
+                </li>
+                <li has-permission = "engineerScreening">
+                    <a ui-sref="app.engineerscreening">
+                        <fa name="caret-right"></fa> {{ 'Menu.ENGINEER_SCREENING' | translate }}</a>
+                </li>
+                <li has-permission = "nonTangibleRepairDetails">
+                    <a ui-sref="app.nontangiblerepair">
+                        <fa name="caret-right"></fa> {{ 'Menu.NON_TANGIBLE_REPAIR_DETAILS' | translate }}</a>
+                </li>
+                <li has-permission = "serviceAssignmentList">
+                    <a ui-sref="app.serviceassignment">
+                        <fa name="caret-right"></fa> {{ 'Menu.SERVICE_ASSIGNMENT_LIST' | translate }}</a>
+                </li>
+                <li has-permission = "serviceRequest">
+                    <a ui-sref="app.pickupreq">
+                        <fa name="caret-right"></fa> {{ 'Menu.PICKUP_REQUEST' | translate }}</a>
+                </li>
+                <li has-permission = "serviceRequestDetail">
+                    <a ui-sref="app.pickupreqdetail">
+                        <fa name="caret-right"></fa> {{ 'Menu.PICKUP_REQUEST_DETAIL' | translate }}</a>
+                </li>
+                <li has-permission = "sealAllotment">
+                    <a ui-sref="app.sealallotment">
+                        <fa name="caret-right"></fa> {{ 'Menu.SEAL_ALLOTMENT' | translate }}</a>
+                </li>
+                <li has-permission = "storeUntCollectionList">
+                    <a ui-sref="app.storeunitcollection">
+                        <fa name="caret-right"></fa> {{ 'Menu.STORE_UNIT_COLLECTION_LIST' | translate }}</a>
+                </li>
+                <li has-permission = "ticketDetail">
+                    <a ui-sref="app.ticketdetail">
+                        <fa name="caret-right"></fa> {{ 'Menu.TICKET_DETAIL' | translate }}</a>
+                </li>
+                <li has-permission = "unitDispatchList">
+                    <a ui-sref="app.unitdispatch">
+                        <fa name="caret-right"></fa> {{ 'Menu.UNIT_DISPATCH_LIST' | translate }}</a>
+                </li>
+                <li has-permission = "unitEstimateList">
+                    <a ui-sref="app.unitestimation">
+                        <fa name="caret-right"></fa> {{ 'Menu.UNIT_ESTIMATION_LIST' | translate }}</a>
+                </li>
+                <li has-permission = "unitPickupFromCustomer" >
+                    <a ui-sref="app.unitpickupfromcustomer">
+                        <fa name="caret-right"></fa> {{ 'Menu.UNIT_PICKUP_FROM_CUSTOMER' | translate }}</a>
+                </li>
+                <li has-permission = "unitPickupFromStore" >
+                    <a ui-sref="app.unitpickupfromstore">
+                        <fa name="caret-right"></fa> {{ 'Menu.UNIT_PICKUP_FROM_STORE' | translate }}</a>
+                </li>
+                <li has-permission = "viewOpenServiceRequest">
+                    <a ui-sref="app.viewopenpickup">
+                        <fa name="caret-right"></fa> {{ 'Menu.VIEW_OPEN_PICKUP_REQUESTS' | translate }}</a>
+                </li> -->
+              </ul>
+            </li>
+
+          </ul>
+        </li>
+
+        <li ui-sref-active="active" has-permission="manager">
+          <a href="javascript:;">
+            <fa name="magic"></fa> <span>{{ 'Menu.MANAGER' | translate }}</span></a>
+          <ul>
+            <li>
+              <a href="javascript:;">
+                <fa name="caret-right"></fa> {{ 'Menu.Master' | translate }}</a>
+              <ul>
+                <!-- <li  has-permission= "addModel">
+                  <a ui-sref="app.addmodel">
+                      <fa name="caret-right"></fa> {{ 'Menu.ADD_MODEL' | translate}}</a>
+                </li>
+                <li has-permission= "editCustomerBase">
+                  <a ui-sref="app.editcustomerbase">
+                      <fa name="caret-right"></fa> {{ 'Menu.EDIT_CUSTOMER_BASE' | translate}}</a>
+                </li>
+                <li has-permission= "addPincode">
+                  <a ui-sref="app.addpincode">
+                      <fa name="caret-right"></fa> {{ 'Menu.ADD_PINCODE' | translate}}</a>
+                </li>
+                <li has-permission = "sealAllotment" >
+                    <a ui-sref="app.sealallotment">
+                        <fa name="caret-right"></fa> {{ 'Menu.SEAL_ALLOTMENT_REPORT' | translate }}</a>
+                </li> -->
+              </ul>
+            </li>
+
+            <li>
+              <a href="javascript:;">
+                <fa name="caret-right"></fa> {{ 'Menu.REPORT' | translate }}</a>
+              <ul>
+                <!-- <li has-permission = "viewCustomerBase" >
+                    <a ui-sref="app.viewcustomer">
+                        <fa name="caret-right"></fa> {{ 'Menu.VIEW_CUSTOMER_BASE' | translate }}</a>
+                </li>
+                <li has-permission= "logisticStatus">
+                    <a ui-sref="app.logisticstatus">
+                        <fa name="caret-right"></fa> {{ 'Menu.LOGISTICS_STATUS_REPORT' | translate }}</a></li>
+                <li has-permission= "sealAllotmentReport">
+                    <a ui-sref="app.sealallotmentreport">
+                        <fa name="caret-right"></fa> {{ 'Menu.SEAL_ALLOTMENT_REPORT' | translate }}</a>
+                </li> -->
+              </ul>
+            </li>
+
+            <li>
+              <a href="javascript:;">
+                <fa name="caret-right"></fa> {{ 'Menu.TRANSACTION' | translate }}</a>
+              <ul>
+                <li has-permission="serviceAssignmentList">
+                  <a ui-sref="app.transaction.serviceAssignmentList">
+                    <fa name="caret-right"></fa> {{ 'Menu.SERVICE_ASSIGNMENT_LIST' | translate }}</a>
+                </li>
+
+                <!-- <li has-permission = "deliveryAssignment">
+                    <a ui-sref="app.deliveryAssignment">
+                        <fa name="caret-right"></fa> {{ 'Menu.DELIVERY_ASSIGNMENT' | translate }}</a></li>
+                <li has-permission = "serviceAssignmentList">
+                    <a ui-sref="app.serviceassignment">
+                        <fa name="caret-right"></fa> {{ 'Menu.SERVICE_ASSIGNMENT_LIST' | translate }}</a>
+                </li>
+                <li has-permission = "serviceRequest">
+                    <a ui-sref="app.pickupreq">
+                        <fa name="caret-right"></fa> {{ 'Menu.PICKUP_REQUEST' | translate }}</a>
+                </li>
+                <li has-permission = "ticketDetail">
+                    <a ui-sref="app.ticketdetail">
+                        <fa name="caret-right"></fa> {{ 'Menu.TICKET_DETAIL' | translate }}</a>
+                </li> -->
+              </ul>
+            </li>
+
+          </ul>
+        </li>
+
+        <li ui-sref-active="active" has-permission="store">
+          <a href="javascript:;">
+            <fa name="magic"></fa> <span>{{ 'Menu.STORE' | translate }}</span></a>
+          <ul>
+            <li>
+              <a href="javascript:;">
+                <fa name="caret-right"></fa> {{ 'Menu.SALES' | translate }}</a>
+              <ul>
+                <li has-permission="sales">
+                  <a ui-sref="app.sale.sales">
+                    <fa name="caret-right"></fa> {{ 'Menu.POLICY_SALES' | translate }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="javascript:;">
+                <fa name="caret-right"></fa> {{ 'Menu.TRANSACTION' | translate }}</a>
+              <ul>
+
+
+                <li has-permission="storeCollection">
+                  <a ui-sref="app.transaction.storeCollection">
+                    <fa name="caret-right"></fa> {{ 'Menu.STORE_UNIT_COLLECTION_LIST' | translate }}</a>
+                </li>
+
+                <li has-permission="unitEstimateList">
+                  <a ui-sref="app.transaction.unitEstimateList">
+                    <fa name="caret-right"></fa> {{ 'Menu.UNIT_ESTIMATION_LIST' | translate }}</a>
+                </li>
+
+                <li has-permission="workinProgress">
+                  <a ui-sref="app.transaction.workinProgress">
+                    <fa name="caret-right"></fa> {{ 'Menu.WORK_IN_PROGRESS' | translate }}</a>
+                </li>
+
+                <li has-permission="unitDispatchList">
+                  <a ui-sref="app.transaction.unitDispatchList">
+                    <fa name="caret-right"></fa> {{ 'Menu.UNIT_DISPATCH_LIST' | translate }}</a>
+                </li>
+                <li has-permission="openServiceRequest">
+                  <a ui-sref="app.transaction.openServiceRequest">
+                    <fa name="caret-right"></fa> {{ 'Menu.OPEN_SERVICE_REQUEST' | translate }}</a>
+                </li>
+
+
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+        <li ui-sref-active="active" has-permission="logistic">
+          <a href="javascript:;">
+            <fa name="magic"></fa> <span>{{ 'Menu.LOGISTIC' | translate }}</span></a>
+          <ul>
+            <!-- <li>
+              <a href="javascript:;"><fa name="caret-right"></fa> {{ 'Menu.REPORTS' | translate }}</a>
+              <ul>
+                <li has-permission="viewCustomerBase">
+                  <a ui-sref="app.viewcustomer">
+                  <fa name="caret-right"></fa> {{ 'Menu.VIEW_CUSTOMER_BASE' | translate }}</a>
+                </li>
+              </ul>
+            </li> -->
+
+            <li>
+              <a href="javascript:;">
+                <fa name="caret-right"></fa> {{ 'Menu.TRANSACTION' | translate }}</a>
+              <ul>
+                <li has-permission="pickupDrop">
+                  <a ui-sref="app.transaction.pickupDrop">
+                    <fa name="caret-right"></fa> {{ 'Menu.PICKUP_DROP' | translate }}</a>
+                </li>
+                <!-- <li has-permission = "deliveryList">
+                    <a ui-sref="app.deliverylist">
+                        <fa name="caret-right"></fa> {{ 'Menu.DELIVERY_LIST' | translate }}</a>
+                </li>
+                <li has-permission = "serviceRequest">
+                    <a ui-sref="app.pickupreq">
+                        <fa name="caret-right"></fa> {{ 'Menu.PICKUP_REQUEST' | translate }}</a>
+                </li>
+                <li has-permission = "ticketDetail" >
+                    <a ui-sref="app.ticketdetail">
+                        <fa name="caret-right"></fa> {{ 'Menu.TICKET_DETAIL' | translate }}</a>
+                </li>
+                <li has-permission = "unitPickupFromCustomer">
+                    <a ui-sref="app.unitpickupfromcustomer">
+                        <fa name="caret-right"></fa> {{ 'Menu.UNIT_PICKUP_FROM_CUSTOMER' | translate }}</a>
+                </li>
+                <li has-permission = "unitPickupFromStore">
+                    <a ui-sref="app.unitpickupfromstore">
+                        <fa name="caret-right"></fa> {{ 'Menu.UNIT_PICKUP_FROM_STORE' | translate }}</a>
+                </li> -->
+              </ul>
+            </li>
+
+          </ul>
+        </li>
+
+        <li ui-sref-active="active" has-permission="insurance">
+          <a href="javascript:;">
+            <fa name="magic"></fa> <span>{{ 'Menu.INSURANCE' | translate }}</span></a>
+          <ul>
+            <li>
+              <a href="javascript:;">
+                <fa name="caret-right"></fa> {{ 'Menu.TRANSACTION' | translate }}</a>
+              <ul>
+
+                <li has-permission="claimApproval">
+                  <a ui-sref="app.insurance.claimApproval">
+                    <fa name="caret-right"></fa> {{ 'Menu.CLAIM_APPROVAL' | translate }}</a>
+                </li>
+                <!-- <li>
+                    <a ui-sref="app.insurance.viewClaim">
+                        <fa name="caret-right"></fa> {{ 'Menu.TICKET_DETAIL' | translate }}</a>
+                </li> -->
+                <!--<li has-permission = "viewOpenServiceRequest">
+                    <a ui-sref="app.viewopenpickup">
+                        <fa name="caret-right"></fa> {{ 'Menu.VIEW_OPEN_PICKUP_REQUESTS' | translate }}</a>
+                </li> -->
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li ui-sref-active="active" has-permission="callcenter">
+          <a href="javascript:;">
+            <fa name="magic"></fa> <span>{{ 'Menu.CALL_CENTER' | translate }}</span></a>
+          <ul>
+            <li>
+              <a href="javascript:;">
+                <fa name="caret-right"></fa> {{ 'Menu.TRANSACTION' | translate }}</a>
+              <ul>
+                <li has-permission="serviceRequest">
+                  <a ui-sref="app.transaction.serviceRequest">
+                    <fa name="caret-right"></fa> {{ 'Menu.PICKUP_REQUEST' | translate }}</a>
+                </li>
+
+                <li has-permission="excessPayment">
+                  <a ui-sref="app.transaction.excessPayment">
+                    <fa name="caret-right"></fa> {{ 'Menu.EXCESS_PAYMENT' | translate }}</a>
+                </li>
+                <li has-permission="openServiceRequest">
+                  <a ui-sref="app.transaction.openServiceRequest">
+                    <fa name="caret-right"></fa> {{ 'Menu.OPEN_SERVICE_REQUEST' | translate }}</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+    </uib-accordion-group>
+
+  </uib-accordion>
+</div>

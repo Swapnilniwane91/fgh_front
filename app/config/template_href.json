@@ -1,0 +1,5 @@
+{
+    "Enterprise": "/public/files/enterprise-template.xlsx",
+    "Insurance": "/public/files/insurance-template.xlsx",
+    "Loaner": "/public/files/loaner-template.xlsx"
+}

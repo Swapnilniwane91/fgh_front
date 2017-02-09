@@ -1,0 +1,180 @@
+<div ng-controller="uploadimageCtrl" class="page" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+
+    <div class="tbox tbox-sm" ng-show="fileUpload">
+        <div class="tcol w-lg bg-tr-white lt">
+            <div class="p-15 bg-white b-r table b-a b-solid">
+                <h4 class="custom-font text-default m-0"><strong>Upload Images</strong></h4>
+            </div>
+
+            <div class="p-15">
+                <div ng-show="uploader.isHTML5" ng-click="launchFilePicker()">
+                    <div class="well text-center p-30 b-dashed b-2x bg-white" nv-file-over="" uploader="uploader">
+                        Select File/Files To Upload
+                    </div>
+                </div>
+                <div ng-hide="uploader.isHTML5"> <input id="fileDialog" type="file" accept="image/*" nv-file-select uploader="uploader" multiple /><br/></div>
+                <hr class="b-0 b-b" />
+            </div>
+
+        </div>
+        <div class="tcol">
+            <div class="p-15 bg-white b-r table b-a b-solid m-0">
+                <h4 class="custom-font text-default m-0"><strong>Upload Queue (.jpg, .png)</strong>
+                <a ng-click="goBack()" style="float:right;right:10px;" 
+                    class="btn btn-ef btn-ef-1 btn-ef-1-primary btn-ef-1a btn-rounded-40">
+                    <i class="glyphicon glyphicon-arrow-left"></i> Back </a>
+                </h4>
+            </div>
+            <div class="p-15">
+                <table class="table b-a b-solid bg-white">
+                    <thead>
+                        <tr>
+                            <th width="50%">Name</th>
+                            <th ng-show="uploader.isHTML5">Size</th>
+                            <th ng-show="uploader.isHTML5">Progress</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in uploader.queue" class="text-sm">
+                            <td><strong>{{ item.file.name }}</strong></td>
+                            <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                            <td ng-show="uploader.isHTML5">
+                                <div class="progress progress-xs not-rounded" style="margin-top: 7px;margin-bottom: 0">
+                                    <div class="progress-bar bg-cyan" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span ng-show="item.isSuccess" class="text-success"><i class="fa fa-check"></i></span>
+                                <span ng-show="item.isCancel" class="text-warning"><i class="fa fa-ban"></i></span>
+                                <span ng-show="item.isError" class="text-danger"><i class="fa fa-times"></i></span>
+                            </td>
+                            <td nowrap>
+                                <!--<button type="button" ng-if="!loading && !fileRes" class="btn btn-primary btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                    <span class="fa fa-upload"></span> Upload
+                                </button>-->
+                                <!--<button type="button" class="btn btn-default btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                                    <span class="fa fa-ban"></span> Cancel
+                                </button> -->
+                                <button type="button" ng-disabled="loading" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                <span class="fa fa-trash"></span> Remove
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button ng-click="uploader.clearQueue()" id="clearQ" style="display:none;"></button>
+                <div>
+
+                    <button class="btn btn-success btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+            <i class="fa fa-upload"></i> <span>Upload all</span>
+          </button>
+
+                    <button class="btn btn-danger btn-ef btn-ef-5 btn-ef-5a" ng-click="uploader.clearQueue()" ng-disabled="!uploader.getNotUploadedItems().length">
+            <i class="fa fa-trash"></i> <span>Remove all</span>
+          </button>
+
+                </div>
+
+                <div ng-if="loading">
+                    <p>Upload progress:</p>
+                    <div class="progress progress-sm progress-striped active bg-tr-black lt" style="">
+                        <div class="progress-bar bg-cyan" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- {{jsonData}} -->
+
+
+    <!--	<input type="checkbox" ng-model="pickupData.selected" ng-change="isLabelUnChecked()">-->
+    <div class="row">
+
+        <!-- <div class="row"> -->
+        <div class="col-md-12" ng-show="filedetail">
+            <!-- tile -->
+            <section class="tile" fullscreen="isFullscreen1">
+
+                <!-- tile header -->
+                <div class="tile-header dvd dvd-btm">
+                    <h1 class="custom-font"><strong>File Details</strong></h1>
+
+                    <ul class="controls">
+                        <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
+
+                            <a href uib-dropdown-toggle class="dropdown-toggle settings"><i class="fa fa-cog"></i></a>
+
+                            <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp">
+                                <li>
+                                    <a href tile-control-toggle>
+                                        <span class="minimize"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                        <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href tile-control-fullscreen ng-click="isFullscreen10 = !isFullscreen10">
+                                        <fa name="expand"></fa> Fullscreen
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href tile-control-lightbox>
+                                        <fa name="magnet"></fa> Open in Lightbox
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- /tile header -->
+                <div class="tile-body" style="height:400px;overflow:auto;">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <th>File Details</th>
+                                <th>Remarks</th>
+                                <th>Action</th>
+                            </thead>
+                            <tbody>
+                                <!--<a href="{{ response.docName }}">-->
+                                <!--http://localhost:3030-->
+                                <tr class="active" ng-repeat="file in fileDetails track by $index">
+                                    <td>
+                                        <img src="{{serverUrl}}/{{file.docURL}}" alt="" width="100px;" style="margin-right: 30px;"> {{ file.docName }}
+                                    </td>
+                                    <td style="vertical-align: middle;"><input type="text" ng-model="file.remarks" value=" " multiline="3"></td>
+                                    <td style="vertical-align: middle;"><button type="button" class="btn btn-danger btn-xs" ng-click="remove($index)">
+                                <span class="fa fa-trash" ></span> Remove
+                                </button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </section>
+            <div>
+                <button type="submit" ng-click="submit($index)" class="btn btn-ef btn-ef-1 btn-ef-1-primary btn-ef-1a btn-rounded-20">
+				      <b>Submit & Back</b>
+					</button>
+            </div>
+            <!-- /tile -->
+        </div>
+
+
+    </div>
+    <!-- /row -->
+
+
+    <!-- /row -->
+
+</div>

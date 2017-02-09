@@ -1,0 +1,100 @@
+<div class="page page-ui-grid" ng-controller="logisticRemarksCtrl">
+
+    <div class="pageheader">
+        <h2>Logistic Remarks</h2>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i>Home</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <section class="tile" fullscreen="isFullscreen01">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile-body">
+                    <form class="form-horizontal" role="form" name="remarkSubmitForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Appointment Date :<b><span style="color:red">*</span></b></label>
+                                    <div class="col-sm-5">
+                                        <input type="text" readonly="readonly" class="form-control" uib-datepicker-popup="{{format}}" ng-model-options="{timezone: 'UTC'}" ng-model="data.Appointmentdate"
+                                            datepicker-options="dateOptions" is-open="popup1.opened" ng-required="true" max-date="{{dtmax}}"
+                                            required/>
+                                    </div>
+                                    <div class="col-sm-2" style="margin-left:-30px;">
+                                        <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                     </span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Remarks :<b><span style="color:red">*</span></b></label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" ng-model="data.Remarks" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-5">
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <button type="submit" class="btn btn-success btn-rounded" ng-click-options="{preventDoubleClick: true}" ng-disabled="remarkSubmitForm.$invalid" ng-click="submitRemarks()">Save</button>
+                                        <button formnovalidate class="btn btn-lightred btn-rounded" ng-click="back()">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <section class="tile" fullscreen="isFullscreen03" ng-show="remarksDetails">
+            <div class="tile-header dvd dvd-btm">
+                <h1 class="custom-font">Logistic Remarks</h1>
+                <ul class="controls">
+                    <li uib-dropdown on-toggle="toggled(open)">
+                        <a href tile-control-toggle>
+                            <span class="minimize" id="min"><fa name="angle-down"></fa>&nbsp;&nbsp;&nbsp;Minimize</span>
+                            <span class="expand"><fa name="angle-up"></fa>&nbsp;&nbsp;&nbsp;Expand</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tile-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="row">
+                                <div class="panel-body col-md-12">
+                                    <div class="col-md-12" style="text-align:center;margin-top:2%;">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered table-hover" id="tblProblem" style="text-align:left;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Remarks</th>
+                                                        <th>Appointment Date</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="data in searchResult">
+                                                        <td>{{data.remark}}</td>
+                                                        <td>{{data.appointmentdate}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+</div>

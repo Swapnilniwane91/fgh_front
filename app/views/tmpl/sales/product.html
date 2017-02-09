@@ -1,0 +1,440 @@
+<div class="page  page-form-wizard" ng-controller="saleProductCtrl">
+
+    <!-- page header -->
+    <div class="pageheader">
+
+        <h2>Sales Product</h2>
+
+        <div class="page-bar">
+
+            <ul class="page-breadcrumb">
+                <li>
+                    <a ui-sref="app.dashboard"><i class="fa fa-home"></i>Home</a>
+                </li>
+                <li>
+                    <a href="javascript:;">Sales</a>
+                </li>
+                <li>
+                    <a ui-sref="app.sale.sales">Product</a>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+    <!-- /page header -->
+    <!-- page content -->
+    <div class="pagecontent">
+
+        <uib-tabset class="tab-animation tab-container tab-wizard" justified="true" set-ng-animate="true" ng-init="steps={step0:true, step1:false, step2:false, step3:false, step4:false}">
+
+            <uib-tab active="steps.step0">
+                <uib-tab-heading>
+                    Product Information
+                    <span class="badge badge-default pull-right wizard-step">0</span>
+                </uib-tab-heading>
+
+                <form name="step0" role="form" ng-submit="step0Submit(s0Form)" novalidate class="form-validation form-horizontal">
+                    <fieldset>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Product Category <b><span style="color:red">*</span></b></label>
+                            <div class="col-sm-5">
+                                <select class="form-control" ng-model="s0Form.productCategoryId" ng-change="proCatChange(s0Form.productCategoryId)" required>
+                                <option value="">select</option>
+                                <option ng-repeat="ProductCat in ProductCats" value="{{ProductCat.Id}}">{{ProductCat.productCategoryName}}</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-3">Provider <b><span style="color:red">*</span></b></label>
+                            <div class="col-sm-5">
+                                <select class="form-control" ng-model="s0Form.clientId" required>
+                                <option value="">select</option>
+                                <option ng-repeat="client in clients" value="{{client.Id}}">{{client.clientName}}</option>
+                            </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" ng-disabled="step0.$invalid" class="btn btn-default pull-right" ng-click="steps.step1=true">Next</button>
+                    </fieldset>
+                </form>
+
+            </uib-tab>
+
+            <uib-tab active="steps.step1" disable="step0.$invalid">
+
+                <uib-tab-heading>
+                    Device Details
+                    <span class="badge badge-default pull-right wizard-step">1</span>
+                </uib-tab-heading>
+                <br>
+                <form name="step1" ng-submit="step1Submit(s1Form)" role="form" novalidate class="form-validation" style="overflow:auto">
+                    <fieldset>
+                        <div class="row">
+                            <div class="form-group col-md-6 mb-0">
+                                <label class="control-label col-sm-3"> IMEI No. <b><span style="color:red">*</span></b></label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="imeiNo" id="imeiNo" number-only class="form-control" ng-blur="checkIMEI(s0Form.productCategoryId,s1Form.imeiNo)" ng-model="s1Form.imeiNo" maxlength="15" minlength="12" pattern="[0-9]*" required>
+
+                                    <p class="help-block">
+                                        <span ng-show="step1.imeiNo.$invalid && !step1.imeiNo.$pristine"><b>IMEI is required.</b></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 mb-0">
+                                <label class="control-label col-sm-3"> OEM <b><span style="color:red">*</span></b></label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" ng-model="s1Form.oemId" ng-change="oemChange(s1Form.oemId)" required>
+                                            <option value="">select</option>
+                                            <option ng-repeat="oem in oems" value="{{oem.oemId}}">{{oem.oemName}}</option>
+                                        </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group col-md-6 mb-0">
+                                <label class="control-label col-sm-3"> Product Family </label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" ng-model="s1Form.pFamilyId" ng-disabled="!pfdisable">
+                                            <option value="">select</option>
+                                            <option ng-repeat="family in pfamilies" value="{{family.familyId}}">{{family.familyName}}</option>
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 mb-0">
+                                <label class="control-label col-sm-3"> Product <b><span style="color:red">*</span></b></label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" ng-model="s1Form.productId" ng-change="productChange(s1Form.productId)" required>
+                                            <option value="">select</option>
+                                            <option ng-repeat="product in products" value="{{product.Id}}">{{product.productName}}</option>
+                                        </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group col-md-6 mb-0">
+                                <label class="control-label col-sm-3"> Model <b><span style="color:red">*</span></b></label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" ng-model="s1Form.modelId" ng-change="modelChange(s1Form.modelId)" required>
+                                            <option value="">select</option>
+                                            <option ng-repeat="model in models" value="{{model.Id}}">{{model.modelName}}</option>
+                                        </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 mb-0">
+                                <label class="control-label col-sm-3"> OS <b><span style="color:red">*</span></b></label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" ng-model="s1Form.osId" required>
+                                            <option value="">select</option>
+                                            <option ng-repeat="os in oss" value="{{os.osId}}">{{os.osName}}</option>
+                                        </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-group col-md-6 mb-0">
+                                <label class="control-label col-sm-3" for="pr-subject"> Proof of Purchase <b><span style="color:red">*</span></b></label>
+                                <div class="col-sm-9">
+                                    <input type="file" class="form-control" name="file" ngf-max-size="20MB" ngf-pattern="'image/*'" file-model="file1.file" ng-model="file1.file" uploader="uploader" accept="image/*, application/pdf" ng-file="s1Form.files" ng-required="true" />
+
+                                    <p class="help-block">
+                                        <span ng-show="step1.file.$invalid && !step1.file.$pristine"><b>Proof of Purchase is required.</b></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 mb-0">
+                                <label class="control-label col-sm-3" for="pr-subject"> Date of Purchase <b><span style="color:red">*</span></b></label>
+                                <div class="col-sm-9 row">
+                                    <div class="col-md-12">
+                                        <p class="input-group">
+                                            <input type="text" readonly="readonly" class="form-control" uib-datepicker-popup="{{format}}" ng-model-options="{timezone: 'UTC'}" ng-model="s1Form.dop" datepicker-options="dateOptions" is-open="popup1.opened" ng-required="true" max-date="{{dtmax}}" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                        </p>
+                                    </div>
+
+                                    <p class="help-block">
+                                        <span ng-show="step1.dop.$invalid && !step1.dop.$pristine">Date of Purchase is required.</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-default" ng-click="steps.step0=true">Previous</button>
+                        <button type="submit" class="btn btn-default pull-right" ng-disabled="step1.$invalid || existIMEI" ng-click="steps.step2=true">Next</button>
+
+                    </fieldset>
+                </form>
+            </uib-tab>
+
+            <uib-tab active="steps.step2" disable="step1.$invalid">
+
+                <uib-tab-heading>
+                    Personal Information
+                    <span class="badge badge-default pull-right wizard-step">2</span>
+                </uib-tab-heading>
+
+                <form name="step2" ng-submit="step2Submit(s2Form)" role="form" novalidate class="form-validation">
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="contact">Contact No. : <b><span style="color:red">*</span></b></label>
+                            <input type="text" name="contactNo" id="contactNo" number-only class="form-control" ng-model="s2Form.contactNo" pattern="[0-9]*" maxlength="12" minlength="10" required>
+                            <p class="help-block">
+                                <span ng-show="step2.contactNo.$invalid && !step2.contactNo.$pristine"><b>Contact Number is required.</b></span>
+                            </p>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="email">E-mail: <b><span style="color:red">*</span></b></label>
+                            <input type="text" name="email" id="email" class="form-control" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-model="s2Form.email" required>
+                            <p class="help-block">
+                                <span style="color:Red" ng-show="step2.email.$dirty && step2.email.$error.pattern">
+                            Please Enter Valid Email!!</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="firstname">First Name: <b><span style="color:red">*</span></b></label>
+                            <input type="text" name="firstName" id="firstName" class="form-control" ng-model="s2Form.firstName" pattern="[a-zA-Z]*" required>
+                            <p class="help-block">
+                                <span ng-show="step2.firstName.$invalid && !step2.firstName.$pristine"><b>First Name is required.</b></span>
+                            </p>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="lastname">Last Name: <b><span style="color:red">*</span></b></label>
+                            <input type="text" name="lastName" id="lastName" class="form-control" ng-model="s2Form.lastName" pattern="[a-zA-Z]*" required>
+                            <p class="help-block">
+                                <span ng-show="step2.lastName.$invalid && !step2.lastName.$pristine"><b>Last Name is required.</b></span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-default" ng-click="steps.step1=true">Previous</button>
+                    <button type="submit" ng-disabled="step2.$invalid" class="btn btn-default pull-right" ng-click="steps.step3=true">Next</button>
+
+                </form>
+
+            </uib-tab>
+
+            <uib-tab active="steps.step3" disable="step2.$invalid">
+
+                <uib-tab-heading>
+                    Address
+                    <span class="badge badge-default pull-right wizard-step">3</span>
+                </uib-tab-heading>
+
+                <form name="step3" ng-submit="step3Submit(s3Form)" role="form" novalidate class="form-validation">
+
+                    <div>
+                        <label>Address Line 1: </label>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input type="text" name="dnumber" id="dnumber" class="form-control" ng-model="s3Form.dnumber" placeholder="Street address, P.O. box, company name, c/o" required>
+                                <p class="help-block">
+                                    <span ng-show="step3.dnumber.$invalid && !step3.dnumber.$pristine">Door number is required. <b><span style="color:red">*</span></b>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-sm-6">
+                                <input type="text" name="street" id="street" class="form-control" ng-model="s3Form.street" placeholder="Apartment, unit, building, floor, etc." required>
+                                <p class="help-block">
+                                    <span ng-show="step3.street.$invalid && !step3.street.$pristine">Apartment, unit, building, floor is required.</span>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address2">Address Line 2 : </label>
+                        <input type="text" name="address2" id="address2" class="form-control" ng-model="s3Form.address2" placeholder="City, Town, etc.">
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-3">
+                            <label for="pinCode"></span>Zip: <b><span style="color:red">*</span></b></label>
+                            <input type="text" name="pinCode" id="pinCode" number-only class="form-control" ng-model="s3Form.pinCode" ng-blur="zipChange(s3Form.pinCode)" placeholder="Enter zip" maxlength="6" pattern="[0-9]*" required>
+                            <p class="help-block">
+                                <span ng-show="step3.pinCode.$invalid && !step3.pinCode.$pristine"><b>Zip is required.</b></span>
+                                <span class="text-red" ng-show="zipError && !step3.pinCode.$pristine"><b> Pin Code Not Available</b></span>
+
+                            </p>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="district">District: </label>
+                            <div>{{zipRes.district}}</div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="state">State: </label>
+                            <div>{{zipRes.state}}</div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="Country">Country: </label>
+                            <div>{{zipRes.country}}</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-default" ng-click="steps.step2=true">Previous</button>
+                    <button type="submit" ng-disabled="step3.$invalid || zipError" class="btn btn-default pull-right" ng-click="steps.step4=true">Next</button>
+
+                </form>
+
+            </uib-tab>
+
+            <uib-tab active="steps.step4" disable="step3.$invalid">
+
+                <uib-tab-heading>
+                    Plans
+                    <span class="badge badge-default pull-right wizard-step">4</span>
+                </uib-tab-heading>
+
+                <form name="step4" role="form" novalidate class="form-validation" style="overflow:auto">
+                    <fieldset>
+                        <div class="" ng-show="s0Form.productCategoryId == '1'">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></span> Policy Plans : <b><span style="color:red">*</span></b></label>
+                                <div class="col-sm-10 form-inline">
+                                    <select class="form-control" name="pplan" ng-model="s4Form.plan" required>
+                                    <option value="">select</option>
+                                    <option ng-repeat="pPlan in pPlans" value="{{pPlan.Id}}">{{pPlan.planName}}</option>
+                                </select>
+                                    <p class="help-block">
+                                        <span ng-show="step4.plan.$invalid && !step4.pplan.$pristine">Plan is required.</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Policy Details: <b><span style="color:red">*</span></b></label>
+                                <div class="col-sm-10 form-inline">
+                                    <input type="text" name="policyId" id="policyId" class="form-control" ng-model="s4Form.policyId" placeholder="Insurance Details" maxlength="15" minlength="15" required>
+                                    <p class="help-block">
+                                        <span ng-show="step4.policyId.$invalid && !step4.policyId.$pristine"><b>Policy Id is required.</b></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="pr-subject">Purchase of Policy Date : <b><span style="color:red">*</span></b></label>
+                                <div class="form-inline col-sm-10">
+                                    <p class="input-group">
+                                        <input type="text" id="policyDate" readonly="readonly" class="form-control" uib-datepicker-popup="{{format}}" ng-model-options="{timezone: 'UTC'}" ng-model="s4Form.policyDate" datepicker-options="dateOptions" is-open="popup2.opened" ng-required="true" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                        </span>
+                                    </p>
+                                    <p class="help-block">
+                                        <span ng-show="step4.policyDate.$invalid && !step4.policyDate.$pristine">Purchase of Policy date is required.</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="" ng-show="s0Form.productCategoryId == '2'">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"></span> EW Plans : <b><span style="color:red">*</span></b></label>
+                                <div class="form-inline col-sm-10">
+                                    <select class="form-control" name="ewplan" ng-model="s4Form.plan" required>
+                                    <option value="">select</option>
+                                    <option ng-repeat="ewPlan in ewPlans" value="{{ewPlan.Id}}">{{ewPlan.planName}}</option>
+                                </select>
+                                    <p class="help-block">
+                                        <span ng-show="step4.plan.$invalid && !step4.ewplan.$pristine">Plan is required.</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Payment Type:  <b><span style="color:red">*</span></b></label>
+                                <div class="form-inline col-sm-10">
+                                    <label class="checkbox checkbox-custom-alt checkbox-custom-sm">
+                                <input name="paymentRadio" value="cash" ng-model="s4Form.paymentMode" type="radio" ><i>
+                                    </i> Cash </label>
+                                    <label class="checkbox checkbox-custom-alt checkbox-custom-sm">
+                                <input name="paymentRadio" ng-disabled="!checked"  type="radio"><i>
+                                    </i> Debit/Credit </label>
+                                    <label class="checkbox checkbox-custom-alt checkbox-custom-sm">
+                                <input name="paymentRadio" ng-disabled="!checked" type="radio"><i>
+                                    </i> Net Banking </label>
+                                    <p class="help-block">
+                                        <span ng-show="step4.paymentRadio.$invalid && !step4.paymentRadio.$pristine"><b>Payment is required.</b></span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12 mb-0">
+                                <section ng-show="s4Form.paymentMode == 'cash'" class="tile" fullscreen="isFullscreen03">
+
+                                    <!-- tile header -->
+                                    <div class="tile-header dvd dvd-btm">
+                                        <h1 class="custom-font"><strong>Payment</strong> Amount</h1>
+                                        <ul class="controls">
+                                            <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)">
+
+                                                <a href="" uib-dropdown-toggle="" class="dropdown-toggle settings" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i></a>
+
+                                                <ul class="dropdown-menu pull-right with-arrow animated littleFadeInUp" style="">
+                                                    <li>
+                                                        <a href="" tile-control-toggle="">
+                                                            <span class="minimize"><i class="fa fa-angle-down" name="angle-down"></i>&nbsp;&nbsp;&nbsp;Minimize</span>
+                                                            <span class="expand"><i class="fa fa-angle-up" name="angle-up"></i>&nbsp;&nbsp;&nbsp;Expand</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="" tile-control-refresh="" ng-click="ajaxFaker()">
+                                                            <i class="fa fa-refresh" name="refresh"></i> Refresh
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="" tile-control-fullscreen="" ng-click="isFullscreen03 = !isFullscreen03">
+                                                            <i class="fa fa-expand" name="expand"></i> Fullscreen
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="" tile-control-lightbox="">
+                                                            <i class="fa fa-magnet" name="magnet"></i> Open in Lightbox
+                                                        </a>
+                                                    </li>
+
+                                                </ul>
+
+                                            </li>
+                                            <!--<li class="remove"><a href="" tile-control-close=""><i class="fa fa-times"></i></a></li>-->
+                                        </ul>
+                                    </div>
+                                    <!-- /tile header -->
+
+                                    <!-- tile body -->
+                                    <div class="tile-body">
+                                        <div class="form-group col-md-10">
+                                            <label class="sr-only" for="amount"> Amount <b><span style="color:red">*</span></b></label>
+                                            <input type="text" name="amount" id="amount" number-only class="form-control" ng-model="s4Form.amount" pattern="[0-9]*" maxlength="10" placeholder="Enter Your Amount" required>
+                                            <p class="help-block">
+                                                <span ng-show="step4.amount.$invalid && !step4.amount.$pristine"><b>Amount is required.</b></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- /tile body -->
+
+                                </section>
+
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-default" ng-click="steps.step3=true">Previous</button>
+                        <button type="submit" class="btn btn-success pull-right" ng-click="submitPolicy(s4Form)" ng-disabled="isDisabled"> Submit </button>
+                    </fieldset>
+                </form>
+            </uib-tab>
+        </uib-tabset>
+
+    </div>
+    <!-- /page content -->
+
+</div>

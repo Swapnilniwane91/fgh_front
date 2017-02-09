@@ -1,0 +1,384 @@
+<div class="page page-alerts" ng-controller="pickupdocCtrl">
+    <!-- page content -->
+    <!--<img src="" ng-show="isLoading">-->
+    <div class="pagecontent" ng-init="printDoc()">
+        <!-- row -->
+        <div class="row">
+            <!-- col -->
+            <div class="col-md-12">
+                <!-- tile -->
+                <section class="tile" fullscreen="isFullscreen01">
+                    <!-- tile header -->
+                    <div class="tile-header dvd dvd-btm">
+                        <h1 class="custom-font"><strong>Request Confirmation - Document</strong></h1>
+                        <!--btn btn-default btn-rounded btn-ef btn-ef-5 btn-ef-5a mb-10-->
+                        <!-- backbutton -->
+                        <!--btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20-->
+                        <button style="float:right;right:208px;" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20" ng-click="close()" back-button><i class="glyphicon glyphicon-arrow-left"></i> CLOSE</button>
+                        <!--<button style="float:right;right:200px;" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20" ng-click="goBack()" back-button><i class="glyphicon glyphicon-arrow-left"></i> BACK</button>-->
+                        <!-- close  button -->&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+
+                        <a href="javascript:window.print()" ng-click="Print()" style="float:right;right:80px;" class="btn btn-ef btn-ef-1 btn-ef-1-default btn-ef-1a btn-rounded-20"> PRINT <i class="fa fa-print"></i>
+                          </a>
+                    </div>
+                    <!-- /tile header -->
+                    <!-- tile body -->
+                    <div class="tile-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!--<div class="col-md-6">
+                                    <img src="public/images/logo.png" alt="B2X" />
+                                </div>-->
+                                <!-- /col-md-6 -->
+
+                                <!-- /col-md-6 -->
+                                <!-- Requester Address -->
+                                <!--{{claimdata.aspname}}-->
+                                <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <h4><strong>Requester Details :</strong>    </h4>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-striped table-bordered">
+                                                <thead>
+                                                    <!--<tr>
+                                                        </tr>-->
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Name</td>
+                                                        <td>{{claimdata[0].aspname}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Address</td>
+                                                        <td>{{claimdata[0].centeraddress}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Phone</td>
+                                                        <td>{{claimdata[0].contactno}}</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4><strong>PickUp Assignment Details :</strong>    </h4>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-striped table-bordered">
+                                                <thead>
+
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Assigned To</td>
+                                                        <td>{{claimdata[0].pickedby}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Assigned date</td>
+                                                        <td>{{claimdata[0].requestdate | date: 'yyyy-MM-dd' }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>TAT</td>
+                                                        <td>{{}}</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--  2nd Div table-->
+                                <div class="col-md-12">
+                                    <!-- <hr class="half-rule"> -->
+                                    <div class="col-md-6">
+                                        <h4><strong>Product Details :</strong></h4>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-striped table-bordered">
+                                                <thead>
+
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Model</td>
+                                                        <td>{{ claimdata[0].productname}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Description</td>
+                                                        <td>{{claimdata[0].modelname}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Serial Number</td>
+                                                        <td>{{claimdata[0].serialno}}</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4><strong>Collection Status :</strong>  </h4>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-striped table-bordered">
+                                                <thead>
+
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Handed Over by</td>
+                                                        <td style="width: 40%;">{{ }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Handed Over Time</td>
+                                                        <td style="width: 40%;">{{}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Remarks</td>
+                                                        <td style="width: 40%;">{{}}</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END of 2nd -->
+
+                                <!--  3rd Div table-->
+                                <div class="col-md-12">
+                                    <!-- <hr class="half-rule"> -->
+                                    <div class="col-md-6">
+                                        <h4><strong>Condition reported by Requester :</strong> </h4>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-striped table-bordered">
+                                                <thead>
+
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Physical Damage</td>
+                                                        <td style="width: 7%;">YES</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <td style="width: 7%;">NO</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <td style="width: 7%;">NA</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <!--<td>{{dataWar.laborCostAmount}} EUR</td>-->
+                                                        <!-- <td>-</td>
+                                                            <td>-</td> -->
+                                                    </tr>
+                                                    <tr>
+                                                        <td> NPO</td>
+                                                        <td style="width: 7%;">YES</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <td style="width: 7%;">NO</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <td style="width: 7%;">NA</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <!--<td>{{dataWar.doaCostCharges}} EUR</td>-->
+                                                        <!--  <td>-</td>
+                                                            <td>-</td> -->
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Liquid Damage</td>
+                                                        <td style="width: 7%;">YES</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <td style="width: 7%;">NO</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <td style="width: 7%;">NA</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <!--<td>{{dataWar.materialCostAmount}} EUR</td>-->
+                                                        <!--  <td>-</td>
+                                                            <td>-</td> -->
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Dealer Device</td>
+                                                        <td style="width: 10%;">YES</td>
+                                                        <td style="width: 10%;"></td>
+                                                        <td style="width: 10%;">NO</td>
+                                                        <td style="width: 10%;"></td>
+                                                        <td style="width: 10%;">NA</td>
+                                                        <td style="width: 10%;"></td>
+                                                        <!--<td>{{dataWar.materialCostAmount}} EUR</td>-->
+                                                        <!--  <td>-</td>
+                                                            <td>-</td> -->
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4><strong>Actual Observations :</strong>  </h4>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-striped table-bordered">
+                                                <thead>
+
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 7%;">YES</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <td style="width: 7%;">NO</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <td style="width: 7%;">NA</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <!--<td>{{dataWar.materialCostAmount}} EUR</td>-->
+                                                        <!--  <td>-</td>
+                                                            <td>-</td> -->
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 7%;">YES</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <td style="width: 7%;">NO</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <td style="width: 7%;">NA</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <!--<td>{{dataWar.materialCostAmount}} EUR</td>-->
+                                                        <!--  <td>-</td>
+                                                            <td>-</td> -->
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 7%;">YES</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <td style="width: 7%;">NO</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <td style="width: 7%;">NA</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <!--<td>{{dataWar.materialCostAmount}} EUR</td>-->
+                                                        <!--  <td>-</td>
+                                                            <td>-</td> -->
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 7%;">YES</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <td style="width: 7%;">NO</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <td style="width: 7%;">NA</td>
+                                                        <td style="width: 7%;"></td>
+                                                        <!--<td>{{dataWar.materialCostAmount}} EUR</td>-->
+                                                        <!--  <td>-</td>
+                                                            <td>-</td> -->
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END of 3rd -->
+
+                                <!--  4th Div table-->
+                                <div class="col-md-12">
+                                    <!-- <hr class="half-rule"> -->
+                                    <div class="col-md-6">
+                                        <h4><strong>Other  Details :</strong> </h4>
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <p cols="100" rows="2">
+                                                    <!--<textarea cols="100" rows="2" class="form-control"></textarea>-->
+                                                </p>
+                                            </div>
+                                            <!-- /panel-body -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4><strong> Other Status :</strong> </h4>
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <p cols="100" rows="2">
+                                                    <!--<textarea cols="100" rows="2" class="form-control"></textarea>-->
+                                                </p>
+                                            </div>
+                                            <!-- /panel-body -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END of 4th -->
+
+
+                                <!--  5th Div table-->
+                                <div class="col-md-12">
+                                    <!-- <hr class="half-rule"> -->
+                                    <div class="col-md-6">
+                                        <h4><strong>PickUp Request Details :</strong> </h4>
+
+                                        <div class="table-responsive">
+                                            <table class="table table-hover table-striped table-bordered">
+                                                <thead>
+
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Request No</td>
+                                                        <td>{{ claimdata[0].ticketnumber}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Request date</td>
+                                                        <td>{{claimdata[0].requestdate | date: 'yyyy-MM-dd'}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Request Status</td>
+                                                        <td>{{claimdata[0].actionstatus}}</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4><strong> Requester Signature :</strong></h4>
+                                        <!--<div></div>-->
+                                        <!--</br>-->
+                                        <div class="panel panel-default">
+                                            <div class="panel-body">
+                                                <p>
+
+                                                </p>
+                                            </div>
+                                            <!-- /panel-body -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END of 4th -->
+
+                                <!-- END Requester-->
+                                <!-- /panel-default -->
+                                <div class="col-md-12">
+                                    <h4><strong> Acknowledgement By Requester :</strong> </h4>
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <p>
+                                                I acknowledge that all the above details are accurate and I have verified the same before handing over the device to the pickup personnel. I am also aware that B2X Service Solutions India Pvt Ltd or its representatives are not responsible for any losses
+                                                or liabilities due to incorrect information provided by me. B2X Service Solutions India Pvt Ltd (Brand: B2X Service Solutions India Pvt Ltd). 101, Prakash Building, Vazira Naka, Borivali West, Mum - 92
+
+                                            </p>
+                                        </div>
+                                        <!-- /panel-body -->
+                                    </div>
+                                </div>
+
+
+                                <!-- /#partnerDetails -->
+                            </div>
+                            <!-- /col-md-12 -->
+                        </div>
+                        <div class="alert alert-cyan" ng-if="dataLength == 0">
+                            <h3>No record found.</h3>
+                        </div>
+                    </div>
+                </section>
+                <!-- /tile -->
+            </div>
+            <!-- /col -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /page content -->
+</div>
